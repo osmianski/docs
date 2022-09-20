@@ -44,7 +44,7 @@ Alternatively, run Vite in production mode with SSR support:
 ```shell
 cd ~/projects/spot
 npm run build
-node bootstrap/ssr/ssr.mjs
+sail node bootstrap/ssr/ssr.mjs
 ```
 
 Open the local copy of the website in the browser: <http://127.0.0.1:8000/>.
