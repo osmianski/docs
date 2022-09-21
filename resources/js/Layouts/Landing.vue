@@ -5,8 +5,6 @@ import Footer from "@/Shared/Footer.vue";
 
 <template>
     <Header />
-    <main>
-        <slot />
-    </main>
+    <slot />
     <Footer />
 </template>
