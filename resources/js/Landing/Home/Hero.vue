@@ -82,8 +82,8 @@ import { ChevronRightIcon } from '@heroicons/vue/20/solid'
                                     <div class="mt-6">
                                         <form action="#" method="POST" class="space-y-6">
                                             <div>
-                                                <label for="name" class="sr-only">Full name</label>
-                                                <input type="text" name="name" id="name" autocomplete="name" placeholder="Full name" required="" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <label for="name" class="sr-only">User name</label>
+                                                <input type="text" name="name" id="name" autocomplete="name" placeholder="User name" required="" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                                             </div>
 
                                             <div>
