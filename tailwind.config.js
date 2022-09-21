@@ -1,15 +1,10 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
-    ],
-
-    plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
+        './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue',
     ],
 
     theme: {
@@ -19,4 +14,9 @@ module.exports = {
             },
         },
     },
-}
+
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
+    ],
+};
