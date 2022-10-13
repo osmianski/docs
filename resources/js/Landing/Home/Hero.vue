@@ -11,27 +11,12 @@ import { ChevronRightIcon } from '@heroicons/vue/20/solid/index'
                     <div class="lg:grid lg:grid-cols-12 lg:gap-8">
                         <div class="px-4 sm:px-6 sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:flex lg:items-center lg:text-left">
                             <div>
-                                <a href="#" class="inline-flex items-center rounded-full bg-gray-900 p-1 pr-2 text-white hover:text-gray-200 sm:text-base lg:text-sm xl:text-base">
-                                    <span class="rounded-full bg-indigo-500 px-3 py-0.5 text-sm font-semibold leading-5 text-white">We're hiring</span>
-                                    <span class="ml-4 text-sm">Visit our careers page</span>
-                                    <ChevronRightIcon class="ml-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-                                </a>
-                                <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">Data to enrich your online business</h1>
-                                <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua ad ad non deserunt sunt.</p>
-                                <p class="mt-8 text-base font-semibold sm:mt-10">Used by</p>
-                                <div class="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
-                                    <div class="flex flex-wrap items-start justify-between">
-                                        <div class="flex justify-center px-1">
-                                            <img class="h-9 sm:h-10" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple" />
-                                        </div>
-                                        <div class="flex justify-center px-1">
-                                            <img class="h-9 sm:h-10" src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg" alt="Workcation" />
-                                        </div>
-                                        <div class="flex justify-center px-1">
-                                            <img class="h-9 sm:h-10" src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg" alt="StaticKit" />
-                                        </div>
-                                    </div>
-                                </div>
+                                <h1 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-5xl">
+                                    If it's not documented, it doesn't exist.
+                                </h1>
+                                <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                                    Publish product documentation from Notion, GitHub, or other provider in a fast and intuitive way.
+                                </p>
                             </div>
                         </div>
                         <div class="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">

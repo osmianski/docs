@@ -7,7 +7,7 @@ import Cta from "@/Landing/Home/Cta.vue";
 
 <template>
     <Head>
-        <title>Spot</title>
+        <title>Home</title>
     </Head>
 
     <Hero />

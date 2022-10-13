@@ -10,7 +10,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 createServer((page) => createInertiaApp({
     page,
     render: renderToString,
-    title: (title) => `${title} - Spot`,
+    title: (title) => `${title} - Docs`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`,
         import.meta.glob('./Pages/**/*.vue')),
     setup: ({ app, props, plugin }) => {
