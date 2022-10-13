@@ -1,5 +1,5 @@
 <script setup>
-import { ChevronRightIcon } from '@heroicons/vue/20/solid'
+import { ChevronRightIcon } from '@heroicons/vue/20/solid/index'
 
 </script>
 

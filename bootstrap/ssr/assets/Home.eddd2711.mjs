@@ -1,8 +1,8 @@
 import { unref, mergeProps, withCtx, createVNode, resolveDynamicComponent, openBlock, createBlock, Fragment, renderList, toDisplayString, Transition, createTextVNode, useSSRContext, defineComponent, h } from "vue";
 import { ssrRenderComponent, ssrRenderList, ssrRenderAttr, ssrRenderVNode, ssrInterpolate, ssrRenderAttrs, ssrRenderSlot } from "vue/server-renderer";
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from "@headlessui/vue";
-import { Bars3Icon, XMarkIcon, ChartBarIcon, CursorArrowRaysIcon, ShieldCheckIcon, Squares2X2Icon, ArrowPathIcon, PlayIcon, PhoneIcon, LifebuoyIcon, BookmarkSquareIcon, CalendarIcon, GlobeAltIcon, ScaleIcon, BoltIcon, ChatBubbleBottomCenterTextIcon, EnvelopeIcon } from "@heroicons/vue/24/outline";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
+import { Bars3Icon, XMarkIcon, ChartBarIcon, CursorArrowRaysIcon, ShieldCheckIcon, Squares2X2Icon, ArrowPathIcon, PlayIcon, PhoneIcon, LifebuoyIcon, BookmarkSquareIcon, CalendarIcon, GlobeAltIcon, ScaleIcon, BoltIcon, ChatBubbleBottomCenterTextIcon, EnvelopeIcon } from "@heroicons/vue/24/outline/index.js";
+import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/vue/20/solid/index.js";
 import { Head } from "@inertiajs/inertia-vue3";
 import { _ as _export_sfc } from "./_plugin-vue_export-helper.43be4956.mjs";
 const _sfc_main$6 = {

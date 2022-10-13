@@ -5,7 +5,7 @@ import {
     EnvelopeIcon,
     GlobeAltIcon,
     ScaleIcon,
-} from '@heroicons/vue/24/outline'
+} from '@heroicons/vue/24/outline/index'
 
 const transferFeatures = [
     {

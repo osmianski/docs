@@ -1,4 +1,4 @@
-Create a Spot profile, add your social media profiles there, and get an infinite wall of your content collected from everywhere, ready for SEO, filterable and searchable.
+A SaaS website for publishing product documentation from Notion, GitHub, or other provider.
 
 * [Developing Locally](#developing-locally)
     * [Prerequisites](#prerequisites)
@@ -18,8 +18,8 @@ Clone the project from GitHub:
 
 ```shell
 cd ~/projects
-git clone git@github.com:osmianski/spot.git
-cd spot
+git clone git@github.com:osmianski/docs.git
+cd docs
 npm install
 ```
 
@@ -28,21 +28,21 @@ npm install
 Start the Docker containers for the project:
 
 ```shell
-cd ~/projects/spot
+cd ~/projects/docs
 sail up
 ```
 
 In a separate terminal window, run Vite asset build script:
 
 ```shell
-cd ~/projects/spot
+cd ~/projects/docs
 npm run dev
 ```
 
 Alternatively, run Vite in production mode with SSR support:
 
 ```shell
-cd ~/projects/spot
+cd ~/projects/docs
 npm run build
 sail node bootstrap/ssr/ssr.mjs
 ```

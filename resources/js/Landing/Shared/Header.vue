@@ -15,8 +15,8 @@ import {
     ShieldCheckIcon,
     Squares2X2Icon,
     XMarkIcon,
-} from '@heroicons/vue/24/outline'
-import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+} from '@heroicons/vue/24/outline/index'
+import { ChevronDownIcon } from '@heroicons/vue/20/solid/index'
 
 const solutions = [
     {
