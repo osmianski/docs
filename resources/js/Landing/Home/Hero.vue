@@ -1,5 +1,8 @@
 <script setup>
-import { ChevronRightIcon } from '@heroicons/vue/20/solid/index'
+
+defineProps({
+    notionAuthUrl: String,
+});
 
 </script>
 
@@ -19,12 +22,14 @@ import { ChevronRightIcon } from '@heroicons/vue/20/solid/index'
                                     documentation websites.
                                 </p>
                                 <p class="mt-8 text-base font-semibold sm:mt-10">
-                                    Let's get started! Where do you edit the docs?
+                                    Let's get started! Where do you store the docs?
                                 </p>
                                 <div class="mt-10 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                                     <div class="flex flex-wrap items-start justify-around">
                                         <div class="flex justify-center px-1">
-                                            <img class="h-9 sm:h-10" src="/images/notion.png" alt="Notion" />
+                                            <a :href="notionAuthUrl">
+                                                <img class="h-9 sm:h-10" src="/images/notion.png" alt="Notion" />
+                                            </a>
                                         </div>
                                         <div class="flex justify-center px-1">
                                             <img class="h-9 sm:h-10" src="/images/github.png" alt="GitHub" />

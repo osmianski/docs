@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\NotionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,9 +26,11 @@ Route::get('/welcome', function () {
     ]);
 });
 
-Route::get('/', function () {
-    return inertia('Landing/Home');
-});
+Route::get('/', [LandingController::class, 'show'])
+    ->name('home');
+
+Route::post('/notion/auth-callback', [NotionController::class, 'authCallback'])
+    ->name('notion.auth-callback');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
