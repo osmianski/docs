@@ -29,7 +29,7 @@ Route::get('/welcome', function () {
 Route::get('/', [LandingController::class, 'show'])
     ->name('home');
 
-Route::post('/notion/auth-callback', [NotionController::class, 'authCallback'])
+Route::get('/notion/auth-callback', [NotionController::class, 'authCallback'])
     ->name('notion.auth-callback');
 
 Route::get('/dashboard', function () {
