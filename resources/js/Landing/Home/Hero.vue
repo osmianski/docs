@@ -18,11 +18,11 @@ defineProps({
                                     If it's not documented, it doesn't exist.
                                 </h1>
                                 <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                                    Turn Notion pages or Markdown files on GitHub into beautiful
+                                    Turn Notion workspaces or GitHub repositories into beautiful
                                     documentation websites.
                                 </p>
                                 <p class="mt-8 text-base font-semibold sm:mt-10">
-                                    Let's get started! Where do you store the docs?
+                                    Let's get started! Where do you store the docs now:
                                 </p>
                                 <div class="mt-10 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                                     <div class="flex flex-wrap items-start justify-around">
