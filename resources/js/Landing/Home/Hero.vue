@@ -1,9 +1,22 @@
 <script setup>
 
-defineProps({
+import { useForm } from '@inertiajs/inertia-vue3';
+import InputError from '@/Components/InputError.vue';
+
+const props = defineProps({
     notionAuthUrl: String,
+    registerUrl: String,
 });
 
+const signUpForm = useForm({
+    name: null,
+    email: null,
+    password: null,
+});
+
+const signUp = () => {
+    signUpForm.post(props.registerUrl);
+};
 </script>
 
 <template>
@@ -22,7 +35,7 @@ defineProps({
                                     documentation websites.
                                 </p>
                                 <p class="mt-8 text-base font-semibold sm:mt-10">
-                                    Use with:
+                                    Use with
                                 </p>
                                 <div class="mt-10 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                                     <div class="flex flex-wrap items-start justify-around">
@@ -42,20 +55,29 @@ defineProps({
                             <div class="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:overflow-hidden sm:rounded-lg border-2 border-gray-200">
                                 <div class="px-4 py-8 sm:px-10">
                                     <div class="mt-6">
-                                        <form action="#" method="POST" class="space-y-6">
+                                        <form @submit.prevent="signUp" method="POST" class="space-y-6">
                                             <div>
                                                 <label for="name" class="sr-only">User name</label>
-                                                <input type="text" name="name" id="name" autocomplete="name" placeholder="User name" required="" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <input type="text" name="name" id="name" autocomplete="name"
+                                                    v-model="signUpForm.name" placeholder="User name" required autofocus
+                                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <InputError class="mt-2" :message="signUpForm.errors.name" />
                                             </div>
 
                                             <div>
                                                 <label for="email" class="sr-only">Email</label>
-                                                <input type="email" name="email" id="email" autocomplete="email" placeholder="Email" required="" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <input type="email" name="email" id="email" autocomplete="email"
+                                                    v-model="signUpForm.email" placeholder="Email" required
+                                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <InputError class="mt-2" :message="signUpForm.errors.email" />
                                             </div>
 
                                             <div>
                                                 <label for="password" class="sr-only">Password</label>
-                                                <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required="" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <input id="password" name="password" type="password"
+                                                    v-model="signUpForm.password" placeholder="Password" autocomplete="current-password" required
+                                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                                <InputError class="mt-2" :message="signUpForm.errors.password" />
                                             </div>
 
                                             <div>

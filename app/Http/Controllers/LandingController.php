@@ -17,6 +17,7 @@ class LandingController extends Controller
                     'owner' => 'user',
                     'response_type' => 'code',
                 ]),
+            'registerUrl' => route('register'),
         ]);
     }
 }

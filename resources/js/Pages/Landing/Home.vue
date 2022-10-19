@@ -6,6 +6,7 @@ import Cta from "@/Landing/Home/Cta.vue";
 
 defineProps({
     notionAuthUrl: String,
+    registerUrl: String,
 });
 
 </script>
@@ -15,7 +16,7 @@ defineProps({
         <title>Home</title>
     </Head>
 
-    <Hero :notionAuthUrl="notionAuthUrl"/>
+    <Hero :notionAuthUrl="notionAuthUrl" :registerUrl="registerUrl" />
     <Features />
     <Cta />
 </template>
