@@ -1,4 +1,4 @@
-A SaaS website for publishing product documentation from Notion, GitHub, or other provider.
+A SaaS that turns Notion workspaces and GitHub repositories into beautiful documentation websites.
 
 * [Developing Locally](#developing-locally)
     * [Prerequisites](#prerequisites)
