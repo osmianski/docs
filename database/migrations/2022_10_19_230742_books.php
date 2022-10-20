@@ -13,12 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('book_roots', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->string('type', 20);
+            $table->boolean('has_multiple_roots')
+                ->default(false);
             $table->foreignUuid('notion_page_uuid')
                 ->nullable()
                 ->constrained('notion_pages', 'uuid')
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
+            $table->string('name');
+            $table->string('title')
+                ->nullable();
         });
     }
 
@@ -29,8 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('book_roots', function (Blueprint $table) {
-            $table->dropForeign(['notion_page_uuid']);
-        });
+        Schema::drop('books');
     }
 };

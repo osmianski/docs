@@ -13,13 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('book_roots', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('user_id')
+            $table->foreignId('book_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('type', 20);
+            $table->foreignUuid('notion_page_uuid')
+                ->nullable()
+                ->constrained('notion_pages', 'uuid')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+            $table->string('name');
+            $table->string('title');
         });
     }
 
