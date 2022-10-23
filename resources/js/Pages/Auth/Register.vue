@@ -6,6 +6,11 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
+const props = defineProps({
+    registerUrl: String,
+    loginUrl: String,
+});
+
 const form = useForm({
     name: '',
     email: '',
@@ -15,7 +20,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
+    form.post(props.registerUrl, {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -51,7 +56,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <Link :href="loginUrl" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Already registered?
                 </Link>
 

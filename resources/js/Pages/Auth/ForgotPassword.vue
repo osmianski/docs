@@ -6,8 +6,9 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 
-defineProps({
+const props = defineProps({
     status: String,
+    passwordEmailUrl: String,
 });
 
 const form = useForm({
@@ -15,7 +16,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('password.email'));
+    form.post(props.passwordEmailUrl);
 };
 </script>
 

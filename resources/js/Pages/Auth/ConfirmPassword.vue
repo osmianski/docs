@@ -6,12 +6,16 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 
+const props = defineProps({
+    confirmPasswordUrl: String,
+});
+
 const form = useForm({
     password: '',
 });
 
 const submit = () => {
-    form.post(route('password.confirm'), {
+    form.post(props.confirmPasswordUrl, {
         onFinish: () => form.reset(),
     })
 };

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
     <!-- Scripts -->
-    @routes
     @vite('resources/js/app.js')
     @inertiaHead
 </head>

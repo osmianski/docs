@@ -20,7 +20,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return inertia('Auth/Register');
+        return inertia('Auth/Register', [
+            'registerUrl' => route('register'),
+            'loginUrl' => route('login'),
+        ]);
     }
 
     /**

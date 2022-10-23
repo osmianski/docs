@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import { current } from '@/helpers';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -20,14 +21,14 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="$page.props.dashboardUrl">
                                     <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="$page.props.dashboardUrl" :active="current() === $page.props.dashboardUrl">
                                     Dashboard
                                 </NavLink>
                             </div>
@@ -50,7 +51,7 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
+                                        <DropdownLink :href="$page.props.logoutUrl" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
                                     </template>
@@ -73,7 +74,7 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="$page.props.dashboardUrl" :active="current() === $page.props.dashboardUrl">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
@@ -86,7 +87,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                            <ResponsiveNavLink :href="$page.props.logoutUrl" method="post" as="button">
                                 Log Out
                             </ResponsiveNavLink>
                         </div>

@@ -7,9 +7,11 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
-defineProps({
+const props = defineProps({
     canResetPassword: Boolean,
     status: String,
+    loginUrl: String,
+    passwordRequestUrl: String,
 });
 
 const form = useForm({
@@ -19,7 +21,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post(props.loginUrl, {
         onFinish: () => form.reset('password'),
     });
 };
@@ -54,7 +56,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <Link v-if="canResetPassword" :href="passwordRequestUrl" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Forgot your password?
                 </Link>
 

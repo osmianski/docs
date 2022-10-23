@@ -6,12 +6,14 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
     status: String,
+    verificationSendUrl: String,
+    logoutUrl: String,
 });
 
 const form = useForm();
 
 const submit = () => {
-    form.post(route('verification.send'));
+    form.post(props.verificationSendUrl);
 };
 
 const verificationLinkSent = computed(() => props.status === 'verification-link-sent');
@@ -35,7 +37,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                     Resend Verification Email
                 </PrimaryButton>
 
-                <Link :href="route('logout')" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
+                <Link :href="logoutUrl" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
             </div>
         </form>
     </GuestLayout>

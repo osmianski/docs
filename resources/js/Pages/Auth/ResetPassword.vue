@@ -9,6 +9,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 const props = defineProps({
     email: String,
     token: String,
+    updatePasswordUrl: String,
 });
 
 const form = useForm({
@@ -19,7 +20,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('password.update'), {
+    form.post(props.updatePasswordUrl, {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
