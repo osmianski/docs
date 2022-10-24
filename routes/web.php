@@ -17,17 +17,6 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/welcome', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'loginUrl' => route('login'),
-        'registerUrl' => route('register'),
-    ]);
-});
-
 Route::get('/', [LandingController::class, 'show'])
     ->name('home');
 
