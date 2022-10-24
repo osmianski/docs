@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
             ],
 
             // header links
+            'homeUrl' => route('home'),
             'loginUrl' => route('login'),
             'registerUrl' => route('register'),
         ],
