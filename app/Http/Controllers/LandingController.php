@@ -7,7 +7,7 @@ use App\Exceptions\Required;
 class LandingController extends Controller
 {
     public function show() {
-        return inertia('Landing/Home', [
+        return inertia('Home', [
             /** @see https://developers.notion.com/docs/authorization#prompting-users-to-add-an-integration */
             'notionAuthUrl' => 'https://api.notion.com/v1/oauth/authorize?' .
                 http_build_query([

@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
-import Hero from "@/Landing/Home/Hero.vue";
-import Features from "@/Landing/Home/Features.vue";
-import Cta from "@/Landing/Home/Cta.vue";
+import Hero from "@/Components/Home/Hero.vue";
+import Features from "@/Components/Home/Features.vue";
+import Cta from "@/Components/Home/Cta.vue";
 
 defineProps({
     notionAuthUrl: String,
@@ -21,7 +21,7 @@ defineProps({
     <Cta />
 </template>
 <script>
-import Layout from "@/Layouts/Landing.vue";
+import Layout from "@/Layouts/LandingLayout.vue";
 export default {
     layout: Layout,
 }

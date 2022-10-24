@@ -37,8 +37,13 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+
+            // header links
+            'loginUrl' => route('login'),
+            'registerUrl' => route('register'),
         ],
         $request->user() ? [
+            // authenticated header links
             'dashboardUrl' => route('dashboard'),
             'logoutUrl' => route('logout'),
         ] : []);
