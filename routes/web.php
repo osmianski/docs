@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\NotionController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,8 +24,8 @@ Route::get('/', [LandingController::class, 'show'])
 Route::get('/notion/auth-callback', [NotionController::class, 'authCallback'])
     ->name('notion.auth-callback');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/{user:name}', [ProfileController::class, 'show'])
+    //->middleware('auth', 'verified')
+    ->name('profile');
 
 require __DIR__.'/auth.php';
