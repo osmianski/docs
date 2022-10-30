@@ -22,7 +22,7 @@ class EmailVerificationPromptController extends Controller
                     ? redirect()->intended(route('profile.home', [
                         'profile' => Auth::user()->name,
                     ]))
-                    : Inertia::render('Auth/VerifyEmail', [
+                    : inertia('Auth/VerifyEmail', [
                         'status' => session('status'),
                         'verificationSendUrl' => route('verification.send'),
                         'logoutUrl' => route('logout'),
