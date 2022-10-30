@@ -45,7 +45,9 @@ class HandleInertiaRequests extends Middleware
         ],
         $request->user() ? [
             // authenticated header links
-            'dashboardUrl' => route('dashboard'),
+            'profileHomeUrl' => route('profile.home', [
+                'profile' => $request->user()->name,
+            ]),
             'logoutUrl' => route('logout'),
         ] : []);
     }
