@@ -21,8 +21,8 @@ defineProps({
     <Cta />
 </template>
 <script>
-import Layout from "@/Layouts/LandingLayout.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 export default {
-    layout: Layout,
+    layout: GuestLayout,
 }
 </script>

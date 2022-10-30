@@ -35,7 +35,7 @@ const signUp = () => {
                                     documentation websites.
                                 </p>
                                 <p class="mt-8 text-base font-semibold sm:mt-10">
-                                    Use with
+                                    Click on a logo and get started with
                                 </p>
                                 <div class="mt-10 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                                     <div class="flex flex-wrap items-start justify-around">

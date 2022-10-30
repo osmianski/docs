@@ -3,6 +3,7 @@
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\NotionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\HandleProfiles;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,8 +25,16 @@ Route::get('/', [LandingController::class, 'show'])
 Route::get('/notion/auth-callback', [NotionController::class, 'authCallback'])
     ->name('notion.auth-callback');
 
-Route::get('/{user:name}', [ProfileController::class, 'show'])
-    //->middleware('auth', 'verified')
-    ->name('profile');
+//Route::get('/{user:name}', [ProfileController::class, 'show'])
+//    //->middleware('auth', 'verified')
+//    ->name('profile');
 
 require __DIR__.'/auth.php';
+
+Route::middleware(HandleProfiles::class)
+    ->prefix('/{profile:name}')
+    ->group(function ()
+{
+    Route::get('', [ProfileController::class, 'show'])
+        ->name('profile.home');
+});
