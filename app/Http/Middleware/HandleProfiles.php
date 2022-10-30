@@ -4,10 +4,13 @@ namespace App\Http\Middleware;
 
 use App\Models\User;
 use Closure;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class HandleProfiles
 {
@@ -20,21 +23,31 @@ class HandleProfiles
      */
     public function handle(Request $request, Closure $next)
     {
-        $this->setIsOwnerParameter($route = $request->route(),
-            $route->parameter('profile'));
+        $route = $request->route();
 
-        return $next($request);
-    }
-
-    protected function setIsOwnerParameter(Route $route, ?User $profile): void
-    {
         // $user profile model is implicitly bound from their name in a route
         // parameter not that there is no user with specified name, the 404 page
         // is returned. For this to work, all profile routes have the
         // `{profile:name}` parameter, and all profile controller actions have
         // the `User $profile` parameter.
 
-        $route->setParameter('isOwner',
-            $profile->id === auth()->user()?->id);
+        /* @var User $profile */
+        $profile = $route->parameter('profile');
+
+        if ($profile->id !== $request->user()?->id) {
+            $route->setParameter('isOwner', false);
+            return $next($request);
+        }
+
+        if ($request->user() instanceof MustVerifyEmail &&
+            ! $request->user()->hasVerifiedEmail())
+        {
+            return $request->expectsJson()
+                ? abort(403, 'Your email address is not verified.')
+                : Redirect::guest(URL::route('verification.notice'));
+        }
+
+        $route->setParameter('isOwner', true);
+        return $next($request);
     }
 }
