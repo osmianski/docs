@@ -66,8 +66,8 @@ const submit = () => {
 </template>
 
 <script>
-import EmptyLayout from '@/Layouts/EmptyLayout.vue';
+import AuthLayout from '@/Layouts/AuthLayout.vue';
 export default {
-    layout: EmptyLayout,
+    layout: AuthLayout,
 }
 </script>

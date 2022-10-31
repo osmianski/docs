@@ -27,8 +27,8 @@ import { Head } from '@inertiajs/inertia-vue3';
 </template>
 
 <script>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import ProfileLayout from "@/Layouts/ProfileLayout.vue";
 export default {
-    layout: AuthenticatedLayout,
+    layout: ProfileLayout,
 }
 </script>
