@@ -3,16 +3,9 @@
 import { inject } from 'vue'
 
 const form = inject('form');
+const idPrefix = inject('idPrefix');
 
 defineProps({
-    idPrefix: {
-        type: String,
-        default: '',
-    },
-    type: {
-        type: String,
-        default: 'text',
-    },
     name: {
         type: String,
         required: true,
@@ -20,6 +13,10 @@ defineProps({
     label: {
         type: String,
         required: true,
+    },
+    type: {
+        type: String,
+        default: 'text',
     },
     required: Boolean,
     autofocus: Boolean,

@@ -3,12 +3,17 @@
 import { provide } from 'vue';
 
 const props = defineProps({
+    idPrefix: {
+        type: String,
+        default: '',
+    },
     data: Object,
 });
 
 const emit = defineEmits(['submit']);
 
 provide('form', props.data);
+provide('idPrefix', props.idPrefix);
 
 function submit() {
     emit('submit');

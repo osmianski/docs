@@ -47,8 +47,8 @@ const signUp = () => {
                         <div class="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
                             <Form class="sm:mx-auto sm:w-full" :data="signUpForm" @submit="signUp">
                                 <FormInput name="name" label="User name" required autofocus />
-                                <FormInput type="email" name="email" label="Email" required />
-                                <FormInput type="password" name="password" label="Password" required />
+                                <FormInput name="email" label="Email" type="email" required />
+                                <FormInput name="password" label="Password" type="password" required />
 
                                 <div>
                                     <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
