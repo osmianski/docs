@@ -1,8 +1,9 @@
 <script setup>
 
 import { useForm } from '@inertiajs/inertia-vue3';
-import InputError from '@/Components/InputError.vue';
 import HeroSectionIntegrationList from "@/Components/Home/Home/HeroSectionIntegrationList.vue";
+import Form from "@/Shared/Form/Home/Form.vue";
+import FormInput from "@/Shared/Form/Home/FormInput.vue";
 
 const props = defineProps({
     notionAuthUrl: String,
@@ -44,44 +45,28 @@ const signUp = () => {
                             </div>
                         </div>
                         <div class="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
-                            <div class="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:overflow-hidden sm:rounded-lg border-2 border-gray-200">
-                                <div class="px-4 py-8 sm:px-10">
-                                    <div class="mt-6">
-                                        <form @submit.prevent="signUp" method="POST" class="space-y-6">
-                                            <div>
-                                                <label for="name" class="sr-only">User name</label>
-                                                <input type="text" name="name" id="name" autocomplete="name"
-                                                    v-model="signUpForm.name" placeholder="User name" required autofocus
-                                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                                                <InputError class="mt-2" :message="signUpForm.errors.name" />
-                                            </div>
+                            <Form class="sm:mx-auto sm:w-full" :data="signUpForm" @submit="signUp">
+                                <FormInput name="name" label="User name" required autofocus />
+                                <FormInput type="email" name="email" label="Email" required />
+                                <FormInput type="password" name="password" label="Password" required />
 
-                                            <div>
-                                                <label for="email" class="sr-only">Email</label>
-                                                <input type="email" name="email" id="email" autocomplete="email"
-                                                    v-model="signUpForm.email" placeholder="Email" required
-                                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                                                <InputError class="mt-2" :message="signUpForm.errors.email" />
-                                            </div>
+                                <div>
+                                    <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        Create your account, it's free!
+                                    </button>
+                                </div>
 
-                                            <div>
-                                                <label for="password" class="sr-only">Password</label>
-                                                <input id="password" name="password" type="password"
-                                                    v-model="signUpForm.password" placeholder="Password" autocomplete="current-password" required
-                                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                                                <InputError class="mt-2" :message="signUpForm.errors.password" />
-                                            </div>
-
-                                            <div>
-                                                <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Create your account, it's free!</button>
-                                            </div>
-                                        </form>
+                                <template #footer>
+                                    <div class="border-t-2 border-gray-200 bg-gray-50 px-4 py-6 sm:px-10">
+                                        <p class="text-xs leading-5 text-gray-500">
+                                            By signing up, you agree to our
+                                            <a href="#" class="font-medium text-gray-900 hover:underline">Terms</a>,
+                                            <a href="#" class="font-medium text-gray-900 hover:underline">Data Policy</a> and
+                                            <a href="#" class="font-medium text-gray-900 hover:underline">Cookies Policy</a>.
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="border-t-2 border-gray-200 bg-gray-50 px-4 py-6 sm:px-10">
-                                    <p class="text-xs leading-5 text-gray-500">By signing up, you agree to our <a href="#" class="font-medium text-gray-900 hover:underline">Terms</a>, <a href="#" class="font-medium text-gray-900 hover:underline">Data Policy</a> and <a href="#" class="font-medium text-gray-900 hover:underline">Cookies Policy</a>.</p>
-                                </div>
-                            </div>
+                                </template>
+                            </Form>
                         </div>
                     </div>
                 </div>
