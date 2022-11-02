@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
         ],
         $request->user() ? [
             // authenticated header links
-            'profileHomeUrl' => route('profile.home', [
+            'profileUrl' => route('profile.home', [
                 'profile' => $request->user()->name,
             ]),
             'logoutUrl' => route('logout'),
