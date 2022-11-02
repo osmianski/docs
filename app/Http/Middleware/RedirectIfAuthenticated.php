@@ -23,9 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('profile.home', [
-                    'profile' => $request->user()->name,
-                ]);
+                return redirect(loggedInUrl());
             }
         }
 

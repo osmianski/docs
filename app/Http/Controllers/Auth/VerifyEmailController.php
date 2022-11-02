@@ -18,9 +18,7 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request)
     {
-        $verifiedUrl = route('profile.home', [
-                'profile' => Auth::user()->name,
-            ]) . '?verified=1';
+        $verifiedUrl = loggedInUrl() . '?verified=1';
 
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended($verifiedUrl);

@@ -27,8 +27,6 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('profile.home', [
-            'profile' => 'test_user',
-        ]));
+        $response->assertRedirect(loggedInUrl());
     }
 }

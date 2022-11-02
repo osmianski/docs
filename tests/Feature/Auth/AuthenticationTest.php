@@ -28,9 +28,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('profile.home', [
-            'profile' => $user->name,
-        ]));
+        $response->assertRedirect(loggedInUrl());
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()
