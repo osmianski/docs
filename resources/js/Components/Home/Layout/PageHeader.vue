@@ -17,7 +17,7 @@ const userNavigation = [
 <template>
     <Popover class="relative bg-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
-            <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+            <div class="flex items-center justify-between border-b-2 border-gray-100 py-6">
                 <div class="flex justify-start lg:w-0 lg:flex-1">
                     <Link :href="$page.props.homeUrl">
                         <span class="sr-only">Docs</span>
@@ -30,7 +30,7 @@ const userNavigation = [
                         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
                     </PopoverButton>
                 </div>
-                <div v-if="$page.props.auth.user" class="hidden sm:ml-6 sm:flex sm:items-center">
+                <div v-if="$page.props.auth.user" class="hidden md:ml-6 md:flex md:items-center">
                     <button type="button" class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span class="sr-only">View notifications</span>
                         <BellIcon class="h-6 w-6" aria-hidden="true" />
