@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 import HeroSection from "@/Components/Home/Home/HeroSection.vue";
 import FeatureList from "@/Components/Home/Home/FeatureList.vue";
 import CallToAction from "@/Components/Home/Home/CallToAction.vue";
+import PageLayout from "@/Layouts/PageLayout.vue";
 
 defineProps({
     notionAuthUrl: String,
@@ -12,11 +13,13 @@ defineProps({
 </script>
 
 <template>
-    <Head>
-        <title>Home</title>
-    </Head>
+    <PageLayout>
+        <Head>
+            <title>Home</title>
+        </Head>
 
-    <HeroSection :notionAuthUrl="notionAuthUrl" :registerUrl="registerUrl" />
-    <FeatureList />
-    <CallToAction />
+        <HeroSection :notionAuthUrl="notionAuthUrl" :registerUrl="registerUrl" />
+        <FeatureList />
+        <CallToAction />
+    </PageLayout>
 </template>
