@@ -13,11 +13,9 @@ defineProps({
 </script>
 
 <template>
-    <PageLayout>
-        <Head>
-            <title>Home</title>
-        </Head>
+    <Head title="Home" />
 
+    <PageLayout>
         <HeroSection :notionAuthUrl="notionAuthUrl" :registerUrl="registerUrl" />
         <FeatureList />
         <CallToAction />
