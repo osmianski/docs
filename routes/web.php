@@ -4,9 +4,8 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\NotionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\HandleProfiles;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +36,7 @@ Route::middleware(HandleProfiles::class)
 {
     Route::get('', [ProfileController::class, 'show'])
         ->name('profile.home');
+
+    Route::get('/books', [Profile\BooksController::class, 'show'])
+        ->name('profile.books');
 });

@@ -7,11 +7,17 @@ import { Link, usePage } from '@inertiajs/inertia-vue3'
 import Logo from "@/Shared/Logo.vue";
 
 const userNavigation = [
-    { name: 'Your Profile', href: usePage().props.value.profileUrl },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: usePage().props.value.logoutUrl, method: 'post', as: 'button' },
+    [
+        { name: 'Your Profile', href: usePage().props.value.profileUrl },
+        { name: 'Your Books', href: usePage().props.value.profileBooksUrl },
+    ],
+    [
+        { name: 'Settings', href: '#' },
+    ],
+    [
+        { name: 'Sign out', href: usePage().props.value.logoutUrl, method: 'post', as: 'button' },
+    ],
 ];
-
 </script>
 
 <template>
@@ -45,12 +51,14 @@ const userNavigation = [
                             </MenuButton>
                         </div>
                         <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-                            <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                                    <Link :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" :method="item.method" :as="item.as">
-                                        {{ item.name }}
-                                    </Link>
-                                </MenuItem>
+                            <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100">
+                                <div v-for="(group, groupIndex) in userNavigation" :key="groupIndex" class="p-1" role="none">
+                                    <MenuItem v-for="item in group" :key="item.name" v-slot="{ active }">
+                                        <Link :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" :method="item.method" :as="item.as">
+                                            {{ item.name }}
+                                        </Link>
+                                    </MenuItem>
+                                </div>
                             </MenuItems>
                         </transition>
                     </Menu>
@@ -79,10 +87,12 @@ const userNavigation = [
                         </div>
                     </div>
                     <div class="space-y-6 py-6 px-5">
-                        <div v-if="$page.props.auth.user">
-                            <Link v-for="item in userNavigation" :key="item.name" :href="item.href" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900" :method="item.method" :as="item.as">
-                                {{ item.name }}
-                            </Link>
+                        <div v-if="$page.props.auth.user" class="divide-y divide-gray-100">
+                            <div v-for="(group, groupIndex) in userNavigation" :key="groupIndex" class="p-1" role="none">
+                                <Link v-for="item in group" :key="item.name" :href="item.href" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900" :method="item.method" :as="item.as">
+                                    {{ item.name }}
+                                </Link>
+                            </div>
                         </div>
                         <div v-else>
                             <Link :href="$page.props.registerUrl" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign up</Link>

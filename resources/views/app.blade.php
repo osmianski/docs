@@ -14,6 +14,7 @@
     @inertiaHead
 </head>
 <body class="h-full">
-    @inertia
+    {{-- @inertia --}}
+    <div id="app" class="min-h-full flex flex-col" data-page="{{ json_encode($page) }}"></div>
 </body>
 </html>

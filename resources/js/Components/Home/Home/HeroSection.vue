@@ -22,7 +22,7 @@ const signUp = () => {
 </script>
 
 <template>
-    <div class="relative overflow-hidden">
+    <div class="relative">
         <div class="relative pt-6 pb-16 sm:pb-24">
             <main class="mt-16 sm:mt-24">
                 <div class="mx-auto max-w-7xl">

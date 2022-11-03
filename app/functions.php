@@ -7,11 +7,11 @@ function homeUrl() {
     return route('home');
 }
 
-function profileUrl() {
+function profileUrl(string $routeName = 'home') {
     /* @var User $user */
     $user = Auth::user();
 
-    return route('profile.home', [
+    return route("profile.{$routeName}", [
         'profile' => $user->name,
     ]);
 }

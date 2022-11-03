@@ -20,9 +20,3 @@ defineProps({
     <FeatureList />
     <CallToAction />
 </template>
-<script>
-import HomeLayout from "@/Layouts/HomeLayout.vue";
-export default {
-    layout: HomeLayout,
-}
-</script>
