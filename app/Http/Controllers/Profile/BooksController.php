@@ -11,6 +11,7 @@ class BooksController extends Controller
         return inertia('Profile/Books', [
             'profile' => $profile,
             'isOwner' => $isOwner,
+            'notionAuthUrl' => notionAuthUrl(),
         ]);
     }
 
