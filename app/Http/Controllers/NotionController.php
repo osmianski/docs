@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\NotImplemented;
+use App\Models\NotionWorkspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -10,6 +11,10 @@ class NotionController extends Controller
 {
     public function authCallback(Request $request) {
         /** @see https://developers.notion.com/docs/authorization#user-grants-access */
+
+        if (!(auth()->id())) {
+            throw new NotImplemented('When user returns from Notion back to us, the session may have ended, and `auth()->id()` returns `null`');
+        }
 
         // If a user refused to grant the permissions, or if Notion has some
         // other issue with granting the permissions, it passes the `error`
@@ -34,9 +39,25 @@ class NotionController extends Controller
                 'grant_type' => 'authorization_code',
             ]);
 
-        // Throw an exception if a client or server error occurred
+        // Throw an exception if a client or server error occurred.
         $response->throw();
 
-        return json_encode($response->json(), JSON_PRETTY_PRINT);
+        // Otherwise, retrieve Notion workspace data from the response JSON
+        $data = $response->object();
+
+        // save the Notion workspace information
+        if (!($workspace = NotionWorkspace::whereUserId(auth()->id())
+            ->whereUuid($data->workspace_id)->first()))
+        {
+            $workspace = new NotionWorkspace();
+
+            $workspace->user_id = auth()->id();
+            $workspace->uuid = $data->workspace_id;
+        }
+
+        $workspace->data = json_encode($data);
+        $workspace->save();
+
+        return 'OK';
     }
 }

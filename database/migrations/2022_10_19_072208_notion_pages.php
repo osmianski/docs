@@ -14,12 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notion_pages', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->id();
             $table->timestamps();
-            $table->foreignUuid('workspace_uuid')
-                ->constrained('notion_workspaces', 'uuid')
-                ->cascadeOnUpdate()
+
+            $table->foreignId('workspace_id')
+                ->constrained('notion_workspaces')
                 ->cascadeOnDelete();
+
+            $table->foreignId('parent_id')
+                ->constrained('notion_pages')
+                ->cascadeOnDelete();
+
+            $table->uuid();
+            $table->unique(['workspace_id', 'uuid']);
+
             $table->string('slug');
             $table->string('title');
             $table->json('data')

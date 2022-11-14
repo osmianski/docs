@@ -16,17 +16,19 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
             $table->foreignId('user_id')
                 ->constrained()
                 ->cascadeOnDelete();
+
+            $table->foreignId('notion_page_id')
+                ->nullable()
+                ->constrained('notion_pages')
+                ->nullOnDelete();
+
             $table->string('type', 20);
             $table->boolean('has_multiple_roots')
                 ->default(false);
-            $table->foreignUuid('notion_page_uuid')
-                ->nullable()
-                ->constrained('notion_pages', 'uuid')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
             $table->string('name');
             $table->string('title')
                 ->nullable();
