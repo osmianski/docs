@@ -24,6 +24,6 @@
     },
     "dependencies": {
         "@inertiajs/server": "^0.1.0",
-        "@vue/server-renderer": "^3.2.41"
+        "@vue/server-renderer": "^3.2.45"
     }
 }
