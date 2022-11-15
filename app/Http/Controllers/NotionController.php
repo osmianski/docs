@@ -55,9 +55,14 @@ class NotionController extends Controller
             $workspace->uuid = $data->workspace_id;
         }
 
+        $workspace->title = mb_substr($data->workspace_name, 0, 256);
         $workspace->data = json_encode($data);
         $workspace->save();
 
-        return 'OK';
+        return redirect()->route('profile.books.new', [
+            'profile' => auth()->user()->name,
+            'type' => 'notion',
+            'notion_workspace_id' => $workspace->id,
+        ]);
     }
 }

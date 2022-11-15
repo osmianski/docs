@@ -39,4 +39,7 @@ Route::middleware(HandleProfiles::class)
 
     Route::get('/books', [Profile\BooksController::class, 'show'])
         ->name('profile.books');
+
+    Route::get('/books/new', [Profile\BooksController::class, 'showNew'])
+        ->name('profile.books.new');
 });

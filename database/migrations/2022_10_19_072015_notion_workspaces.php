@@ -24,6 +24,7 @@ return new class extends Migration
             $table->uuid();
             $table->unique(['user_id', 'uuid']);
 
+            $table->string('title');
             $table->json('data');
         });
     }

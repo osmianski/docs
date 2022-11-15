@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\UnauthorizedException;
 
 class HandleProfiles
 {
@@ -31,8 +32,21 @@ class HandleProfiles
         // `{profile:name}` parameter, and all profile controller actions have
         // the `User $profile` parameter.
 
-        /* @var User $profile */
+        /* @var User|string $profile */
         $profile = $route->parameter('profile');
+
+        if (is_string($profile)) {
+            // the controller action method doesn't define `User $profile`
+            // parameter. It means that the action is only available for the
+            // profile owner.
+
+            if ($profile !== $request->user()?->name) {
+                throw new UnauthorizedException();
+            }
+
+            $route->setParameter('isOwner', true);
+            return $next($request);
+        }
 
         if ($profile->id !== $request->user()?->id) {
             $route->setParameter('isOwner', false);
