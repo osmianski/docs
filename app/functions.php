@@ -30,3 +30,22 @@ function notionAuthUrl(): string {
 function loggedInUrl() {
     return homeUrl();
 }
+
+/**
+ * @param string $className
+ * @return \stdClass[]
+ */
+function enumOptions(string $className): array {
+    $class = new \ReflectionEnum($className);
+
+    $options = [];
+
+    foreach ($class->getCases() as $case) {
+        $options[] = (object)[
+            'value' => $case->getValue(),
+            'label' => $case->getName(),
+        ];
+    }
+
+    return $options;
+}

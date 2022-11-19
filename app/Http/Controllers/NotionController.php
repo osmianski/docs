@@ -61,7 +61,7 @@ class NotionController extends Controller
 
         return redirect()->route('profile.books.new', [
             'profile' => auth()->user()->name,
-            'type' => 'notion',
+            'source' => 'notion',
             'notion_workspace_id' => $workspace->id,
         ]);
     }
