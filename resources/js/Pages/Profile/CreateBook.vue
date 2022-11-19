@@ -4,12 +4,14 @@ import PageLayout from "@/Layouts/PageLayout.vue";
 import Form from "@/Shared/Form/Profile/Form.vue";
 import FormSelect from "@/Shared/Form/Profile/FormSelect.vue";
 import FormSection from "@/Shared/Form/Profile/FormSection.vue";
+import FormListbox from "@/Shared/Form/Profile/FormListbox.vue";
 
 const props = defineProps({
     profile: Object,
     isOwner: Boolean,
     saveUrl: String,
     sourcePlatforms: Array,
+    notionWorkspaces: Array,
     data: {
         type: Object,
         default: {},
@@ -21,6 +23,8 @@ const form = useForm(props.data);
 function save() {
     form.post(props.saveUrl);
 }
+
+const notionPages = [];
 
 </script>
 
@@ -56,6 +60,16 @@ function save() {
                             <FormSelect name="source" label="Platform" required
                                 :options="sourcePlatforms"
                                 class="sm:col-span-3" />
+                            <div class="hidden sm:block sm:col-span-3" />
+
+                            <FormSelect name="notion_workspace_id" label="Notion workspace" required
+                                :options="notionWorkspaces"
+                                class="sm:col-span-3" />
+                            <div class="hidden sm:block sm:col-span-3" />
+
+                            <FormListbox name="notion_page_id" label="Root Notion page" required
+                                :options="notionPages"
+                                class="sm:col-span-3"/>
                         </div>
                     </FormSection>
 

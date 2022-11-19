@@ -21,12 +21,18 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
+            $table->string('source', 20);
+
+            $table->foreignId('notion_workspace_id')
+                ->nullable()
+                ->constrained('notion_workspaces')
+                ->nullOnDelete();
+
             $table->foreignId('notion_page_id')
                 ->nullable()
                 ->constrained('notion_pages')
                 ->nullOnDelete();
 
-            $table->string('type', 20);
             $table->boolean('has_multiple_roots')
                 ->default(false);
             $table->string('name');
