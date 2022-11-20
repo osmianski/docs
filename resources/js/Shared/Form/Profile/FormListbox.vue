@@ -32,13 +32,19 @@ const selected = ref(allOptions[0])
 
 <template>
     <Listbox as="div" v-model="selected">
-        <ListboxLabel class="block text-sm font-medium text-gray-700">{{ label }}</ListboxLabel>
-        <div class="relative mt-1">
+        <ListboxLabel class="block text-sm font-medium text-gray-700">
+            {{ label }}
+            <span v-if="required">*</span>
+        </ListboxLabel>
+        <div class="mt-1 text-sm text-gray-500">
+            <slot name="description" />
+        </div>
+        <div class="relative mt-1 max-w-lg">
             <ListboxButton class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                 <span class="block truncate h-5">{{ selected.label }}</span>
                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-          <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-        </span>
+                  <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </span>
             </ListboxButton>
 
             <transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">

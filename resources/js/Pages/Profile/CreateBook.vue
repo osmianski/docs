@@ -41,8 +41,8 @@ const notionPages = [];
                 </div>
                 <p class="mt-1 text-sm text-gray-500">
                     A book is a tree-like set of documentation pages. A book is
-                    targeted at certain type of readers, for example, the user
-                    guide and the developer guide.
+                    targeted at certain type of readers. A user guide or a
+                    developer guide are 2 examples of books.
                 </p>
             </div>
         </header>
@@ -58,18 +58,20 @@ const notionPages = [];
                         </template>
                         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                             <FormSelect name="source" label="Platform" required
-                                :options="sourcePlatforms"
-                                class="sm:col-span-3" />
-                            <div class="hidden sm:block sm:col-span-3" />
+                                        :options="sourcePlatforms"
+                                        class="sm:col-span-6" />
 
                             <FormSelect name="notion_workspace_id" label="Notion workspace" required
-                                :options="notionWorkspaces"
-                                class="sm:col-span-3" />
-                            <div class="hidden sm:block sm:col-span-3" />
+                                        :options="notionWorkspaces"
+                                        class="sm:col-span-6" />
 
-                            <FormListbox name="notion_page_id" label="Root Notion page" required
-                                :options="notionPages"
-                                class="sm:col-span-3"/>
+                            <FormListbox name="notion_page_id" label="Root page"
+                                         :options="notionPages"
+                                         class="sm:col-span-6">
+                                <template #description>
+                                    <p>If only a part of the selected Notion workspace should be rendered as documentation, select the root page containing that part.</p>
+                                </template>
+                            </FormListbox>
                         </div>
                     </FormSection>
 
