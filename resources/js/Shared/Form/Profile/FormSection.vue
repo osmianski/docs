@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <div>
+    <div class="py-6">
         <div>
             <h3 class="text-lg font-medium leading-6 text-gray-900">{{ title }}</h3>
             <div class="mt-1 text-sm text-gray-500">

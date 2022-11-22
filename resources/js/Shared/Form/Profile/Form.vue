@@ -21,8 +21,8 @@ function submit() {
 </script>
 
 <template>
-    <form @submit.prevent="submit" class="space-y-8 divide-y divide-gray-200">
-        <div class="space-y-8 divide-y divide-gray-200">
+    <form @submit.prevent="submit" class="divide-y divide-gray-200">
+        <div class="divide-y divide-gray-200">
             <slot />
         </div>
 

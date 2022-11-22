@@ -2,6 +2,7 @@
 import {Head, useForm} from '@inertiajs/inertia-vue3';
 import PageLayout from "@/Layouts/PageLayout.vue";
 import Form from "@/Shared/Form/Profile/Form.vue";
+import FormInput from "@/Shared/Form/Profile/FormInput.vue";
 import FormSelect from "@/Shared/Form/Profile/FormSelect.vue";
 import FormSection from "@/Shared/Form/Profile/FormSection.vue";
 import FormListbox from "@/Shared/Form/Profile/FormListbox.vue";
@@ -32,7 +33,7 @@ const notionPages = [];
     <Head :title="`New Book - ${profile.name}`" />
 
     <PageLayout>
-        <header class="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 ">
+        <header class="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6 ">
             <div class="w-full relative border-b border-gray-200 pb-5">
                 <div class="md:flex md:items-center md:justify-between">
                     <h1 class="text-2xl font-medium leading-6 text-gray-900">
@@ -72,6 +73,16 @@ const notionPages = [];
                                     <p>If only a part of the selected Notion workspace should be rendered as documentation, select the root page containing that part.</p>
                                 </template>
                             </FormListbox>
+                        </div>
+                    </FormSection>
+
+                    <FormSection title="Properties">
+                        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                            <FormInput name="name" label="Name" required
+                                       class="sm:col-span-6" />
+
+                            <FormInput name="title" label="Title" required
+                                        class="sm:col-span-6" />
                         </div>
                     </FormSection>
 

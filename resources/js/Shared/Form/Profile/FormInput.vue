@@ -26,7 +26,7 @@ defineProps({
 
 <template>
     <div>
-        <label :for="idPrefix + name" class="sr-only">
+        <label :for="idPrefix + name" class="block text-sm font-medium text-gray-700">
             {{ label }}
             <span v-if="required">*</span>
         </label>
@@ -34,7 +34,7 @@ defineProps({
             <slot name="description" />
         </div>
         <input :type="type" :name="name" :id="idPrefix + name" :autocomplete="name"
-               v-model="form[name]" :placeholder="label" :required="required" :autofocus="autofocus"
+               v-model="form[name]" :required="required" :autofocus="autofocus"
                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
         <div class="mt-2" v-show="form.errors[name]">
             <p class="text-sm text-red-600">{{ form.errors[name] }}</p>
