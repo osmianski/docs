@@ -49,7 +49,7 @@ defineProps({
         <input v-else :type="type" :name="name" :id="idPrefix + name" :autocomplete="name"
                v-model="form[name]" :required="required" :autofocus="autofocus"
                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-        <div class="mt-2" v-show="form.errors[name]">
+        <div class="mt-2" v-if="form.errors[name]">
             <p class="text-sm text-red-600">{{ form.errors[name] }}</p>
         </div>
     </div>

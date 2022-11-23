@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Profile;
 use App\Enums\SourcePlatform;
 use App\Exceptions\NotImplemented;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateBookRequest;
+use App\Models\Book;
 use App\Models\NotionWorkspace;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,6 +34,22 @@ class BooksController extends Controller
             'data' => (object)$data,
             'sourcePlatforms' => enumOptions(SourcePlatform::class),
             'notionWorkspaces' => NotionWorkspace::get(['id AS value', 'title AS label']),
+            'saveUrl' => profileUrl('books.do_create'),
         ]);
+    }
+
+    public function saveNew(CreateBookRequest $request) {
+        $request->validated();
+
+        Book::create([
+            'user_id' => auth()->id(),
+            'source' => $request->source,
+            'notion_workspace_id' => $request->notion_workspace_id,
+            'notion_page_id' => $request->notion_page_id,
+            'name' => $request->name,
+            'title' => $request->title,
+        ]);
+
+        return redirect(profileUrl('books'));
     }
 }

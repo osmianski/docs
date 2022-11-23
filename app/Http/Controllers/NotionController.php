@@ -59,7 +59,7 @@ class NotionController extends Controller
         $workspace->data = json_encode($data);
         $workspace->save();
 
-        return redirect()->route('profile.books.new', [
+        return redirect()->route('profile.books.create', [
             'profile' => auth()->user()->name,
             'source' => 'notion',
             'notion_workspace_id' => $workspace->id,

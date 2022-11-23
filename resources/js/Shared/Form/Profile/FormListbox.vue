@@ -65,5 +65,8 @@ const selected = ref(allOptions[0])
             </div>
             <slot name="after"></slot>
         </div>
+        <div class="mt-2" v-if="form.errors[name]">
+            <p class="text-sm text-red-600">{{ form.errors[name] }}</p>
+        </div>
     </Listbox>
 </template>

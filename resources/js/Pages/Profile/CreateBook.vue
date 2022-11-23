@@ -1,5 +1,5 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/inertia-vue3';
+import {Head, useForm, Link} from '@inertiajs/inertia-vue3';
 import PageLayout from "@/Layouts/PageLayout.vue";
 import Form from "@/Shared/Form/Profile/Form.vue";
 import FormInput from "@/Shared/Form/Profile/FormInput.vue";
@@ -17,9 +17,16 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    profileBooksUrl: String,
 });
 
-const form = useForm(props.data);
+const form = useForm(Object.assign({
+    source: null,
+    notion_workspace_id: null,
+    notion_page_id: null,
+    name: null,
+    title: null,
+}, props.data));
 
 function save() {
     form.post(props.saveUrl);
@@ -98,8 +105,8 @@ const notionPages = [];
 
                     <template #footer>
                         <div class="pt-5">
-                            <div class="flex justify-end">
-                                <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Cancel</button>
+                            <div class="flex justify-end pb-1">
+                                <Link :href="profileBooksUrl" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Cancel</Link>
                                 <button type="submit" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
                             </div>
                         </div>

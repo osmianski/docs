@@ -40,6 +40,9 @@ Route::middleware(HandleProfiles::class)
     Route::get('/books', [Profile\BooksController::class, 'show'])
         ->name('profile.books');
 
-    Route::get('/books/new', [Profile\BooksController::class, 'showNew'])
-        ->name('profile.books.new');
+    Route::get('/books/create', [Profile\BooksController::class, 'showNew'])
+        ->name('profile.books.create');
+
+    Route::post('/books/create', [Profile\BooksController::class, 'saveNew'])
+        ->name('profile.books.do_create');
 });

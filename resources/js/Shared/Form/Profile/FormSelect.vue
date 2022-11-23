@@ -44,7 +44,7 @@ defineProps({
                 {{ option.label }}
             </option>
         </select>
-        <div class="mt-2" v-show="form.errors[name]">
+        <div class="mt-2" v-if="form.errors[name]">
             <p class="text-sm text-red-600">{{ form.errors[name] }}</p>
         </div>
     </div>
