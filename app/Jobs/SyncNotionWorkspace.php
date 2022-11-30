@@ -19,6 +19,7 @@ class SyncNotionWorkspace implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected const LIMIT = 100;
     /**
      * A workspace to sync
      * @var NotionWorkspace
@@ -82,7 +83,7 @@ class SyncNotionWorkspace implements ShouldQueue
             ? new Cursor($this->output->getOutput())
             : null;
 
-        $data = $this->client->search();
+        $data = $this->client->search(limit: static::LIMIT);
         $count = count($data->results);
 
         while (true) {
@@ -98,7 +99,8 @@ class SyncNotionWorkspace implements ShouldQueue
                 break;
             }
 
-            $data = $this->client->search(cursor: $data->next_cursor);
+            $data = $this->client->search(cursor: $data->next_cursor,
+                limit: static::LIMIT);
             $count += count($data->results);
         }
     }

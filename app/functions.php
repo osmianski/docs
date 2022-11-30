@@ -1,5 +1,7 @@
 <?php
 
+use App\Jobs\SyncNotionWorkspace;
+use App\Models\NotionWorkspace;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,4 +50,10 @@ function enumOptions(string $className): array {
     }
 
     return $options;
+}
+
+function syncNotionWorkspace(int $id) {
+    $workspace = NotionWorkspace::find($id);
+    $job = new SyncNotionWorkspace($workspace);
+    $job->handle();
 }

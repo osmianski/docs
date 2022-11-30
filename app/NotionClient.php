@@ -33,8 +33,10 @@ class NotionClient
         return $response->object();
     }
 
-    public function search(string $cursor = null): \stdClass {
+    public function search(string $cursor = null, int $limit = 100): \stdClass
+    {
         $data = [
+            'page_size' => $limit,
             'sort' => [
                 'direction' => 'ascending',
                 'timestamp' => 'last_edited_time',
