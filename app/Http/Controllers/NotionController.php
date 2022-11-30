@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\NotImplemented;
 use App\Models\NotionWorkspace;
+use App\NotionClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class NotionController extends Controller
 {
-    public function authCallback(Request $request) {
+    public function authCallback(Request $request, NotionClient $client) {
         /** @see https://developers.notion.com/docs/authorization#user-grants-access */
 
         if (!(auth()->id())) {
@@ -30,20 +31,7 @@ class NotionController extends Controller
         }
 
         // Get the information about user and granted permissions
-        $response = Http::acceptJson()
-            ->withBasicAuth(env('NOTION_CLIENT_ID'), env('NOTION_CLIENT_SECRET'))
-            ->post('https://api.notion.com/v1/oauth/token', [
-                'code' => $code,
-                'redirect_uri' => env('NOTION_AUTH_CALLBACK_URL',
-                    route('notion.auth-callback')),
-                'grant_type' => 'authorization_code',
-            ]);
-
-        // Throw an exception if a client or server error occurred.
-        $response->throw();
-
-        // Otherwise, retrieve Notion workspace data from the response JSON
-        $data = $response->object();
+        $data = $client->getOAuthToken($code);
 
         // save the Notion workspace information
         if (!($workspace = NotionWorkspace::whereUserId(auth()->id())
@@ -55,8 +43,11 @@ class NotionController extends Controller
             $workspace->uuid = $data->workspace_id;
         }
 
-        $workspace->title = mb_substr($data->workspace_name, 0, 256);
         $workspace->data = json_encode($data);
+
+        $workspace->title = mb_substr($data->workspace_name, 0, 256);
+        $workspace->bearer_token = mb_substr($data->access_token, 0, 256);
+
         $workspace->save();
 
         return redirect()->route('profile.books.create', [

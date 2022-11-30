@@ -36,12 +36,13 @@ class SyncNotion extends Command
     public function handle()
     {
         foreach (NotionWorkspace::all() as $workspace) {
-            SyncNotionWorkspace::dispatchSync($workspace,
-                $this->output,
+            $job = new SyncNotionWorkspace($workspace, $this->output,
                 $this->option('full'),
                 $this->option('no-wait')
                     ? OnNotionRateLimit::Stop
                     : OnNotionRateLimit::Wait);
+
+            $job->handle();
         }
 
         return static::SUCCESS;

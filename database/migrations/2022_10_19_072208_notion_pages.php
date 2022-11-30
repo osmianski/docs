@@ -22,14 +22,15 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->foreignId('parent_id')
+                ->nullable()
                 ->constrained('notion_pages')
                 ->cascadeOnDelete();
 
             $table->uuid();
             $table->unique(['workspace_id', 'uuid']);
 
-            $table->string('slug');
-            $table->string('title');
+            $table->string('type');
+
             $table->json('data')
                 ->nullable();
             $table->json('children')

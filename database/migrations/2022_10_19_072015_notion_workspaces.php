@@ -25,6 +25,8 @@ return new class extends Migration
             $table->unique(['user_id', 'uuid']);
 
             $table->string('title');
+            $table->string('bearer_token');
+
             $table->json('data');
         });
     }

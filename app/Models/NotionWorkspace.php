@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\NotionClient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,8 +27,20 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|NotionWorkspace whereId($value)
  * @property string $title
  * @method static \Illuminate\Database\Eloquent\Builder|NotionWorkspace whereTitle($value)
+ * @property-read \App\Models\User|null $user
+ * @property string $bearer_token
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionWorkspace whereBearerToken($value)
  */
 class NotionWorkspace extends Model
 {
     use HasFactory;
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function client(): NotionClient {
+        return new NotionClient($this->bearer_token);
+    }
 }

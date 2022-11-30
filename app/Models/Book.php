@@ -28,6 +28,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUserId($value)
  * @mixin \Eloquent
+ * @property string $source
+ * @property int|null $notion_workspace_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereNotionWorkspaceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereSource($value)
  */
 class Book extends Model
 {
