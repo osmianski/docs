@@ -26,15 +26,15 @@ return new class extends Migration
                 ->constrained('notion_pages')
                 ->cascadeOnDelete();
 
-            $table->uuid();
+            $table->uuid()->index();
             $table->unique(['workspace_id', 'uuid']);
 
+            $table->uuid('parent_uuid')->nullable()->index();
             $table->string('type');
+            $table->string('title')->nullable();
 
-            $table->json('data')
-                ->nullable();
-            $table->json('children')
-                ->nullable();
+            $table->json('data')->nullable();
+            $table->json('children')->nullable();
         });
     }
 

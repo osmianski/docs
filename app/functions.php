@@ -57,3 +57,4 @@ function syncNotionWorkspace(int $id) {
     $job = new SyncNotionWorkspace($workspace);
     $job->handle();
 }
+

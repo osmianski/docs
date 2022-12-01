@@ -36,6 +36,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\NotionWorkspace[] $notionWorkspaces
+ * @property-read int|null $notion_workspaces_count
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -70,4 +72,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function notionWorkspaces() {
+        return $this->hasMany(NotionWorkspace::class);
+    }
 }

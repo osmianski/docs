@@ -72,7 +72,12 @@ class SyncNotionWorkspace implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle() {
+        $this->download();
+        $this->assignParentId();
+    }
+
+    protected function download()
     {
         $message = "Syncing '{$this->workspace->title}' workspace " .
             "on behalf of '{$this->workspace->user->name}' ...";
@@ -119,7 +124,48 @@ class SyncNotionWorkspace implements ShouldQueue
         $page->data = json_encode($data);
 
         $page->type = $data->object;
+        $page->title = match($page->type) {
+            'page' => ($title = $this->pageTitle($data))
+                ? mb_substr($title, 0, 256)
+                : null,
+            'database' => mb_substr($this->title($data), 0, 256),
+            default => null,
+        };
+        $page->parent_uuid = in_array($data->parent?->type, ['database_id', 'page_id'])
+            ? $data->parent?->{$data->parent?->type}
+            : null;
 
         $page->save();
+    }
+
+    protected function assignParentId()
+    {
+        NotionPage::whereWorkspaceId($this->workspace->id)
+            ->with('parentByUuid:id,uuid')
+            ->lazyById()
+            ->each(function(NotionPage $page) {
+                $page->parent_id = $page->parentByUuid?->id;
+                $page->save();
+            });
+    }
+
+    protected function pageTitle(\stdClass $data): ?string
+    {
+        foreach ($data->properties as $property) {
+            if ($property->type === 'title') {
+                return $this->title($property);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param mixed $property
+     * @return string
+     */
+    protected function title(\stdClass $property): string
+    {
+        return collect($property->title)->implode('plain_text', '');
     }
 }

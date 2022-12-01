@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\User|null $user
  * @property string $bearer_token
  * @method static \Illuminate\Database\Eloquent\Builder|NotionWorkspace whereBearerToken($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\NotionPage[] $pages
+ * @property-read int|null $pages_count
  */
 class NotionWorkspace extends Model
 {
@@ -37,10 +39,14 @@ class NotionWorkspace extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function client(): NotionClient {
         return new NotionClient($this->bearer_token);
+    }
+
+    public function pages() {
+        return $this->hasMany(NotionPage::class);
     }
 }
