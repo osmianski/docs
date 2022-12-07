@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|NotionWorkspace whereBearerToken($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\NotionPage[] $pages
  * @property-read int|null $pages_count
+ * @property string|null $synced_at
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionWorkspace whereSyncedAt($value)
  */
 class NotionWorkspace extends Model
 {

@@ -7,12 +7,14 @@ use App\Exceptions\NotImplemented;
 use App\Models\NotionPage;
 use App\Models\NotionWorkspace;
 use App\NotionClient;
+use DB;
 use Illuminate\Bus\Queueable;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Date;
 use Symfony\Component\Console\Cursor;
 
 class SyncNotionWorkspace implements ShouldQueue
@@ -73,11 +75,14 @@ class SyncNotionWorkspace implements ShouldQueue
      * @return void
      */
     public function handle() {
-        $this->download();
-        $this->assignParentId();
+        DB::transaction(function() {
+            $this->importFromNotion();
+            $this->assignParentId();
+            $this->markWorkspaceAsSynced();
+        });
     }
 
-    protected function download()
+    protected function importFromNotion()
     {
         $message = "Syncing '{$this->workspace->title}' workspace " .
             "on behalf of '{$this->workspace->user->name}' ...";
@@ -167,5 +172,11 @@ class SyncNotionWorkspace implements ShouldQueue
     protected function title(\stdClass $property): string
     {
         return collect($property->title)->implode('plain_text', '');
+    }
+
+    protected function markWorkspaceAsSynced(): void
+    {
+        $this->workspace->synced_at = Date::now();
+        $this->workspace->save();
     }
 }
