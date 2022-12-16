@@ -37,10 +37,10 @@ class NotionClient
     {
         $data = [
             'page_size' => $limit,
-            'sort' => [
-                'direction' => 'ascending',
-                'timestamp' => 'last_edited_time',
-            ],
+//            'sort' => [
+//                'direction' => 'ascending',
+//                'timestamp' => 'last_edited_time',
+//            ],
         ];
 
         if ($cursor) {
