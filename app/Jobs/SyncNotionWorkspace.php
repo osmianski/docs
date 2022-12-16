@@ -13,6 +13,7 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
@@ -89,6 +90,11 @@ class SyncNotionWorkspace implements ShouldQueue
         $this->lastSyncedAt = $this->workspace->synced_at
             ? Date::parse($this->workspace->synced_at)
             : null;
+    }
+
+    public function middleware()
+    {
+        return [new WithoutOverlapping($this->workspace->id)];
     }
 
     /**
