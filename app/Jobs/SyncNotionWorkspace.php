@@ -117,7 +117,7 @@ class SyncNotionWorkspace implements ShouldQueue
         // Use timestamp fetched _before_ getting data from Notion. This way,
         // the next time the partial sync happens, we'll fetch all the changes
         // made during the previous sync, too
-        $this->startedSyncingAt = Date::now();
+        $this->startedSyncingAt = now();
 
         // Get the first batch of Notion pages
         $data = $this->client->search(limit: static::BATCH_SIZE);
@@ -180,9 +180,9 @@ class SyncNotionWorkspace implements ShouldQueue
         $page->type = $data->object;
         $page->title = match($page->type) {
             'page' => ($title = $this->pageTitle($data))
-                ? mb_substr($title, 0, 256)
+                ? mb_substr($title, 0, 255)
                 : null,
-            'database' => mb_substr($this->title($data), 0, 256),
+            'database' => mb_substr($this->title($data), 0, 255),
             default => null,
         };
         $page->parent_uuid = in_array($data->parent?->type, ['database_id', 'page_id'])

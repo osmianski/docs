@@ -7,6 +7,7 @@ use App\Jobs\SyncNotionWorkspace;
 use App\Models\NotionWorkspace;
 use App\NotionClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 
 class NotionController extends Controller
