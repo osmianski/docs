@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('bearer_token');
-            $table->timestamp('synced_at')->nullable();
+            $table->timestampTz('synced_at')->nullable();
 
             $table->json('data');
         });
