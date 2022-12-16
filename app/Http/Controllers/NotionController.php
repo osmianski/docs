@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\NotImplemented;
+use App\Jobs\SyncNotionWorkspace;
 use App\Models\NotionWorkspace;
 use App\NotionClient;
 use Illuminate\Http\Request;
@@ -49,6 +50,8 @@ class NotionController extends Controller
         $workspace->bearer_token = mb_substr($data->access_token, 0, 256);
 
         $workspace->save();
+
+        SyncNotionWorkspace::dispatch($workspace);
 
         return redirect()->route('profile.books.create', [
             'profile' => auth()->user()->name,
