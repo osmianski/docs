@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\NotionPage
@@ -41,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class NotionPage extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function workspace() {
         return $this->belongsTo(NotionWorkspace::class);

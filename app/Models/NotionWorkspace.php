@@ -39,6 +39,11 @@ class NotionWorkspace extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'synced_at' => 'datetime',
+        // TODO: continue here
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

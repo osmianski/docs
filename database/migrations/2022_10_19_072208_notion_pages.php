@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('notion_pages', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('workspace_id')
                 ->constrained('notion_workspaces')

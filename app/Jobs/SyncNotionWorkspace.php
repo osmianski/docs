@@ -66,12 +66,6 @@ class SyncNotionWorkspace implements ShouldQueue
     protected ?Carbon $startedSyncingAt;
 
     /**
-     * The `synced_at` timestamp of the last successful sync.
-     *
-     * @var Carbon|null
-     */
-    protected ?Carbon $lastSyncedAt;
-    /**
      * Create a new job instance.
      *
      * @return void
@@ -87,9 +81,6 @@ class SyncNotionWorkspace implements ShouldQueue
         $this->output = $output;
 
         $this->client = $this->workspace->client();
-        $this->lastSyncedAt = $this->workspace->synced_at
-            ? Date::parse($this->workspace->synced_at)
-            : null;
     }
 
     public function middleware()
@@ -126,7 +117,7 @@ class SyncNotionWorkspace implements ShouldQueue
         $this->startedSyncingAt = now();
 
         // Get the first batch of Notion pages
-        $data = $this->client->search(limit: static::BATCH_SIZE);
+        $data = $this->client->search(limit: 1);
         $count = 0;
         $changedSinceLastSync = true;
 
@@ -238,12 +229,12 @@ class SyncNotionWorkspace implements ShouldQueue
     protected function changedSinceLastSync(\stdClass $data): bool
     {
         // During the first sync all Notion pages are worth syncing
-        if (!$this->lastSyncedAt) {
+        if (!$this->workspace->synced_at) {
             return true;
         }
 
         $lastEditedTime = Date::parse($data->last_edited_time);
 
-        return $lastEditedTime->gte($this->lastSyncedAt);
+        return $lastEditedTime->gte($this->workspace->synced_at);
     }
 }
