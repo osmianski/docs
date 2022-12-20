@@ -20,10 +20,21 @@ class Kernel extends ConsoleKernel
         //$schedule->command('inspire')->everyMinute();
         $schedule->command('telescope:prune')->daily();
 
+
         $schedule
             ->call(function () {
+                $count = NotionWorkspace::count();
+                $index = 0;
                 foreach (NotionWorkspace::all() as $workspace) {
-                    SyncNotionWorkspace::dispatch($workspace);
+                    // Distribute Notion API calls evenly within the
+                    // 5-minute interval by delaying the job execution
+                    // accordingly
+                    $delay = floor(floatval($index) / floatval($count) * 300);
+
+                    SyncNotionWorkspace::dispatch($workspace)
+                        ->delay(now()->addSeconds($delay));
+
+                    $index++;
                 }
             })
             ->name('Sync Notion workspaces incrementally')
