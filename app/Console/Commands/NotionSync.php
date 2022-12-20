@@ -8,7 +8,7 @@ use App\Models\NotionWorkspace;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
-class SyncNotion extends Command
+class NotionSync extends Command
 {
     /**
      * The name and signature of the console command.
