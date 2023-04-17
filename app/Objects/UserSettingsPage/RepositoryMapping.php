@@ -12,6 +12,7 @@ class RepositoryMapping implements Wireable
     use HasLazyProperties;
 
     public ?string $path = null;
+
     public ?string $repo_url = null;
 
     public function toLivewire(): array

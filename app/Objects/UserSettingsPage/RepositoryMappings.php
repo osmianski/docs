@@ -21,7 +21,7 @@ class RepositoryMappings implements Wireable, ArrayAccess
 
     public static function fromLivewire($value): static
     {
-        return new static(array_map(fn($item) => RepositoryMapping::fromLivewire($item), $value));
+        return new static(array_map(fn ($item) => RepositoryMapping::fromLivewire($item), $value));
     }
 
     public function offsetExists(mixed $offset): bool
@@ -38,7 +38,8 @@ class RepositoryMappings implements Wireable, ArrayAccess
     {
         if (is_null($offset)) {
             $this->items[] = $value;
-        } else {
+        }
+        else {
             $this->items[$offset] = $value;
         }
     }
