@@ -1,6 +1,6 @@
 # Docs
 
-A SaaS rendering a mega website from lots of Git repositories. Built with Laravel, Livewire and Alpine.js.
+A SaaS that renders a mega website from lots of Git repositories. Built with Laravel, Livewire and Alpine.js.
 
 ## Prerequisites
 
