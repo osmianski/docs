@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\HomePage;
+use App\Http\Livewire\UserSettingsPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomePage::class)->name('home');
+Route::get('/osmianski/_settings', UserSettingsPage::class)->name('user.settings');
