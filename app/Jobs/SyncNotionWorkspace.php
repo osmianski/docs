@@ -2,9 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Enums\Notion\ObjectType;
 use App\Enums\OnNotionRateLimit;
 use App\Exceptions\NotImplemented;
-use App\Models\NotionPage;
+use App\Models\NotionObject;
 use App\Models\NotionWorkspace;
 use App\NotionClient;
 use DB;
@@ -16,6 +17,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Symfony\Component\Console\Cursor;
 
@@ -94,147 +96,202 @@ class SyncNotionWorkspace implements ShouldQueue
      * @return void
      */
     public function handle() {
-        DB::transaction(function() {
-            $this->importFromNotion();
-            $this->assignParentId();
-            $this->markWorkspaceAsSynced();
-        });
+        $this->sync();
     }
 
-    protected function importFromNotion()
+    protected function sync()
     {
         // Output to console
         $message = "Syncing '{$this->workspace->title}' workspace " .
             "on behalf of '{$this->workspace->user->name}' ...";
-        $this->output?->writeln($message);
-        $cursor = $this->output
-            ? new Cursor($this->output->getOutput())
-            : null;
+        $this->output?->write($message);
 
         // Use timestamp fetched _before_ getting data from Notion. This way,
         // the next time the partial sync happens, we'll fetch all the changes
         // made during the previous sync, too
         $this->startedSyncingAt = now();
 
+        $this->syncRoots();
+
+        $this->output?->writeln(' DONE');
+    }
+
+    protected function syncRoots(): void
+    {
         // Get the first batch of Notion pages
-        $data = $this->client->search(limit: 1);
-        $count = 0;
-        $changedSinceLastSync = true;
+        $data = $this->client->search(limit: static::BATCH_SIZE);
 
-        while (true) {
-            // Save fetched data to the `notion_pages` database table.
-            foreach ($data->results as $pageData) {
-                if (!$this->changedSinceLastSync($pageData)) {
-                    // All subsequent Notion pages are not changed since the
-                    // last sync. We know that because Notion returns pages
-                    // sorted by `last_edited_time` in descending order.
-                    // So we can safely ignore the rest Notion pages.
-                    $changedSinceLastSync = false;
-                    break;
-                }
+        collect($data->results)
+            ->filter(fn (\stdClass $data) =>
+                $data->parent?->type === 'workspace' &&
+                $data->parent?->workspace
+            )
+            ->each(fn (\stdClass $data) => $this->insertOrUpdateObject($data));
 
-                $this->save($pageData);
-                $count++;
-            }
-
-            // Output to console
-            $cursor?->moveUp();
-            $cursor?->clearLine();
-            $this->output?->writeln("{$message} {$count} page(s) saved.");
-
-            // If it's the last batch, stop syncing
-            if (!$data->has_more) {
-                break;
-            }
-
-            if (!$changedSinceLastSync) {
-                // All subsequent batches are not changed since the last sync.
-                // We know that because Notion returns pages sorted by
-                // `last_edited_time` in descending order.
-                // So we can safely ignore the batches.
-                break;
-            }
-
+        while ($data->has_more) {
             // Get the next batch of Notion pages
             $data = $this->client->search(cursor: $data->next_cursor,
                 limit: static::BATCH_SIZE);
+
+            collect($data->results)
+                ->filter(fn (\stdClass $data) =>
+                    $data->parent?->type === 'workspace' &&
+                    $data->parent?->workspace
+                )
+                ->each(fn (\stdClass $data) => $this->insertOrUpdateObject($data));
+        }
+
+        $roots = NotionObject::whereParentId(null)->withTrashed()->get();
+        foreach ($roots as $root) {
+            $this->deleteOrUpdateObject($root);
+        }
+
+        // sync children, recursively
+        $roots = NotionObject::whereParentId(null)->get();
+        foreach ($roots as $root) {
+            $this->syncChildrenRecursively($root);
         }
     }
 
-    protected function save(\stdClass $data): void
+    protected function insertOrUpdateObject(\stdClass $data,
+        NotionObject $parent = null): void
     {
-        if (!($page = NotionPage::whereWorkspaceId($this->workspace->id)
+        if (!($page = NotionObject::whereWorkspaceId($this->workspace->id)
             ->whereUuid($data->id)->first()))
         {
-            $page = new NotionPage();
+            $page = new NotionObject();
 
             $page->workspace_id = $this->workspace->id;
             $page->uuid = $data->id;
         }
 
-        $page->data = json_encode($data);
-
-        $page->type = $data->object;
-        $page->title = match($page->type) {
-            'page' => ($title = $this->pageTitle($data))
-                ? mb_substr($title, 0, 255)
-                : null,
-            'database' => mb_substr($this->title($data), 0, 255),
-            default => null,
-        };
-        $page->parent_uuid = in_array($data->parent?->type, ['database_id', 'page_id'])
-            ? $data->parent?->{$data->parent?->type}
-            : null;
-
+        $page->parent_id = $parent?->id;
+        $page->data = $data;
         $page->save();
     }
 
-    protected function assignParentId()
-    {
-        NotionPage::whereWorkspaceId($this->workspace->id)
-            ->with('parentByUuid:id,uuid')
-            ->lazyById()
-            ->each(function(NotionPage $page) {
-                $page->parent_id = $page->parentByUuid?->id;
-                $page->save();
-            });
-    }
 
-    protected function pageTitle(\stdClass $data): ?string
+    protected function deleteOrUpdateObject(NotionObject $object): void
     {
-        foreach ($data->properties as $property) {
-            if ($property->type === 'title') {
-                return $this->title($property);
-            }
+        $data = match($object->type) {
+            ObjectType::Database->value => $this->client->getDatabase($object->uuid),
+            ObjectType::Page->value => $this->client->getPage($object->uuid),
+            default => $this->client->getBlock($object->uuid),
+        };
+
+        if (!$data) {
+            $object->forceDelete();
+            return;
         }
 
-        return null;
-    }
-
-    /**
-     * @param mixed $property
-     * @return string
-     */
-    protected function title(\stdClass $property): string
-    {
-        return collect($property->title)->implode('plain_text', '');
-    }
-
-    protected function markWorkspaceAsSynced(): void
-    {
-        $this->workspace->synced_at = $this->startedSyncingAt;
-        $this->workspace->save();
-    }
-
-    protected function changedSinceLastSync(\stdClass $data): bool
-    {
-        // During the first sync all Notion pages are worth syncing
-        if (!$this->workspace->synced_at) {
-            return true;
+        if ($data->archived ?? false) {
+            $object->delete();
+            return;
         }
 
-        $lastEditedTime = Date::parse($data->last_edited_time);
+        $object->data = $data;
+        $object->save();
+    }
 
-        return $lastEditedTime->gte($this->workspace->synced_at);
+    protected function deleteOrUpdatePage(NotionObject $page): void
+    {
+        $data = $this->client->getPage($page->uuid);
+
+    }
+
+    protected function deleteOrUpdateDatabase(NotionObject $page): void
+    {
+        $data = $this->client->getDatabase($page->uuid);
+
+        if (!$data) {
+            $page->forceDelete();
+            return;
+        }
+
+        if ($data->archived ?? false) {
+            $page->delete();
+            return;
+        }
+
+        $page->data = $data;
+        $page->save();
+    }
+
+    protected function syncChildrenRecursively(NotionObject $parent): void
+    {
+        if ($parent->type === ObjectType::Database->value) {
+            $this->syncRecordsRecursively($parent);
+            return;
+        }
+
+        // Get the first batch of Notion pages
+        $data = $this->client->getChildren($parent->uuid,
+            limit: static::BATCH_SIZE);
+        $children = $data->results;
+
+        collect($data->results)
+            ->each(fn (\stdClass $data) =>
+                $this->insertOrUpdateObject($data, $parent)
+            );
+
+        while ($data->has_more) {
+            // Get the next batch of Notion pages
+            $data = $this->client->getChildren($parent->uuid,
+                cursor: $data->next_cursor, limit: static::BATCH_SIZE);
+            $children = array_merge($children, $data->results);
+
+            collect($data->results)
+                ->each(fn (\stdClass $data) =>
+                    $this->insertOrUpdateObject($data, $parent)
+                );
+        }
+
+        $parent->children = $children;
+        $parent->save();
+
+        $objects = NotionObject::whereParentId($parent->id)->withTrashed()->get();
+        foreach ($objects as $object) {
+            $this->deleteOrUpdateObject($object);
+        }
+
+        // sync children, recursively
+        $objects = NotionObject::whereParentId($parent->id)->get();
+        foreach ($objects as $object) {
+            $this->syncChildrenRecursively($object);
+        }
+    }
+
+    protected function syncRecordsRecursively(NotionObject $database): void
+    {
+        // Get the first batch of Notion pages
+        $data = $this->client->query($database->uuid,
+            limit: static::BATCH_SIZE);
+
+        collect($data->results)
+            ->each(fn (\stdClass $data) =>
+                $this->insertOrUpdateObject($data, $database)
+            );
+
+        while ($data->has_more) {
+            // Get the next batch of Notion pages
+            $data = $this->client->query($database->uuid,
+                cursor: $data->next_cursor, limit: static::BATCH_SIZE);
+
+            collect($data->results)
+                ->each(fn (\stdClass $data) =>
+                    $this->insertOrUpdateObject($data, $database)
+                );
+        }
+
+        $objects = NotionObject::whereParentId($database->id)->withTrashed()->get();
+        foreach ($objects as $object) {
+            $this->deleteOrUpdateObject($object);
+        }
+
+        // sync children, recursively
+        $objects = NotionObject::whereParentId($database->id)->get();
+        foreach ($objects as $object) {
+            $this->syncChildrenRecursively($object);
+        }
     }
 }

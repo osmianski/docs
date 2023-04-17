@@ -9,7 +9,7 @@ use Illuminate\Validation\Rules\Enum;
 /**
  * @property string $source
  * @property int $notion_workspace_id
- * @property int $notion_page_id
+ * @property int $notion_object_id
  * @property string $name
  * @property string $title
  */
@@ -20,7 +20,7 @@ class CreateBookRequest extends FormRequest
         return [
             'source' => ['required', new Enum(SourcePlatform::class)],
             'notion_workspace_id' => 'required|integer|exists:notion_workspaces,id',
-            'notion_page_id' => 'nullable|integer|exists:notion_pages,id',
+            'notion_object_id' => 'nullable|integer|exists:notion_objects,id',
             'name' => 'required|string|max:255|regex:/^\w+$/',
             'title' => 'required|string|max:255',
         ];

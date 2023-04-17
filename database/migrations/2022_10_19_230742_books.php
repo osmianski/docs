@@ -28,9 +28,9 @@ return new class extends Migration
                 ->constrained('notion_workspaces')
                 ->nullOnDelete();
 
-            $table->foreignId('notion_page_id')
+            $table->foreignId('notion_object_id')
                 ->nullable()
-                ->constrained('notion_pages')
+                ->constrained('notion_objects')
                 ->nullOnDelete();
 
             $table->boolean('has_multiple_roots')

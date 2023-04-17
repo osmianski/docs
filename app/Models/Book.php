@@ -42,7 +42,7 @@ class Book extends Model
         'user_id',
         'source',
         'notion_workspace_id',
-        'notion_page_id',
+        'notion_object_id',
         'name',
         'title',
     ];

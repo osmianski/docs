@@ -45,7 +45,7 @@ class BooksController extends Controller
             'user_id' => auth()->id(),
             'source' => $request->source,
             'notion_workspace_id' => $request->notion_workspace_id,
-            'notion_page_id' => $request->notion_page_id,
+            'notion_object_id' => $request->notion_object_id,
             'name' => $request->name,
             'title' => $request->title,
         ]);

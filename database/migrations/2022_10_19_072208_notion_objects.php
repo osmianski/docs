@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notion_pages', function (Blueprint $table) {
+        Schema::create('notion_objects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -24,13 +24,12 @@ return new class extends Migration
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('notion_pages')
+                ->constrained('notion_objects')
                 ->cascadeOnDelete();
 
             $table->uuid()->index();
             $table->unique(['workspace_id', 'uuid']);
 
-            $table->uuid('parent_uuid')->nullable()->index();
             $table->string('type');
             $table->string('title')->nullable();
 
@@ -46,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('notion_pages');
+        Schema::drop('notion_objects');
     }
 };

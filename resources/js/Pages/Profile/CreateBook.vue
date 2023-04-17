@@ -23,7 +23,7 @@ const props = defineProps({
 const form = useForm(Object.assign({
     source: null,
     notion_workspace_id: null,
-    notion_page_id: null,
+    notion_object_id: null,
     name: null,
     title: null,
 }, props.data));
@@ -32,7 +32,7 @@ function save() {
     form.post(props.saveUrl);
 }
 
-const notionPages = [];
+const notionObjects = [];
 
 </script>
 
@@ -73,8 +73,8 @@ const notionPages = [];
                                         :options="notionWorkspaces"
                                         class="sm:col-span-6" />
 
-                            <FormListbox name="notion_page_id" label="Root page"
-                                         :options="notionPages" disabled
+                            <FormListbox name="notion_object_id" label="Root page"
+                                         :options="notionObjects" disabled
                                          class="sm:col-span-6">
                                 <template #description>
                                     <p>If only a part of the selected Notion workspace should be rendered as documentation, select the root page containing that part.</p>

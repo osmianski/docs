@@ -45,11 +45,7 @@ class NotionController extends Controller
             $workspace->uuid = $data->workspace_id;
         }
 
-        $workspace->data = json_encode($data);
-
-        $workspace->title = mb_substr($data->workspace_name, 0, 256);
-        $workspace->bearer_token = mb_substr($data->access_token, 0, 256);
-
+        $workspace->data = $data;
         $workspace->save();
 
         SyncNotionWorkspace::dispatch($workspace);

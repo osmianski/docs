@@ -21,9 +21,9 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('notion_page_id')
+            $table->foreignId('notion_object_id')
                 ->nullable()
-                ->constrained('notion_pages')
+                ->constrained('notion_objects')
                 ->nullOnDelete();
 
             $table->string('name');
