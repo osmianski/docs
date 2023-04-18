@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\HomePage;
-use App\Http\Livewire\UserSettingsPage;
+use App\Livewire\HomePage;
+use App\Livewire\UserSettingsPage;
 use Illuminate\Support\Facades\Route;
 
 /*

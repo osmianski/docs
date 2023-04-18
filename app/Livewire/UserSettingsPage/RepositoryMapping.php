@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Objects\UserSettingsPage;
+namespace App\Livewire\UserSettingsPage;
 
 use Livewire\Wireable;
 use Osmianski\Traits\ConstructedFromArray;
