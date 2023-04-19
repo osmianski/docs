@@ -33,7 +33,15 @@ A SaaS that renders a mega website from lots of Git repositories. Built with Lar
     ```
 
 4. Open the local copy of the website in the browser: <http://127.0.0.1:8000/>.
- 
+
+5. Copy Git hooks:
+
+    ```shell
+    cd ~/projects/docs
+    chmod a+x git-hooks/*
+    cp git-hooks/* .git/hooks/
+    ```  
+
 ## Previous effort
 
 [`v0.1`](https://github.com/osmianski/docs/tree/v0.1) was a SaaS that turns Notion workspaces and GitHub repositories into beautiful documentation websites. Built with Laravel, Vue.js and Inertia.js. It was abandoned in 2023. It has some good reusable bits:

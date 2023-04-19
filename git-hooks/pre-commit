@@ -4,4 +4,4 @@
 set -e
 
 # Fix PHP styles
-vendor/bin/pint
+vendor/bin/pint --dirty

@@ -1,0 +1,37 @@
+{
+    "name": "osmianski/view-models",
+    "description": "Livewire view models",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Author Name",
+            "email": "author@email.com",
+            "homepage": "http://author.com"
+        }
+    ],
+    "homepage": "https://github.com/osmianski/view-models",
+    "keywords": ["Laravel", "Livewire", "View", "Model"],
+    "require": {
+        "illuminate/support": "^10"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Osmianski\\ViewModels\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Osmianski\\ViewModels\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Osmianski\\ViewModels\\ServiceProvider"
+            ]
+        }
+    }
+}

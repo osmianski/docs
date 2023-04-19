@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9547ef7e786a8b207a58ec8797b9f111",
+    "content-hash": "a62cfa5a9b18bb1f9ef6345a27e217ac",
     "packages": [
         {
             "name": "brick/math",
@@ -979,16 +979,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.7.1",
+            "version": "v10.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ddbbb2b50388721fe63312bb4469cae13163fd36"
+                "reference": "317d7ccaeb1bbf4ac3035efe225ef2746c45f3a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ddbbb2b50388721fe63312bb4469cae13163fd36",
-                "reference": "ddbbb2b50388721fe63312bb4469cae13163fd36",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/317d7ccaeb1bbf4ac3035efe225ef2746c45f3a8",
+                "reference": "317d7ccaeb1bbf4ac3035efe225ef2746c45f3a8",
                 "shasum": ""
             },
             "require": {
@@ -1175,7 +1175,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-04-11T14:11:49+00:00"
+            "time": "2023-04-18T13:45:33+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2313,6 +2313,61 @@
                 "source": "https://github.com/osmianski/lazy-properties/tree/v0.1.1"
             },
             "time": "2023-03-28T19:53:19+00:00"
+        },
+        {
+            "name": "osmianski/view-models",
+            "version": "0.2.x-dev",
+            "dist": {
+                "type": "path",
+                "url": "packages/osmianski/view-models",
+                "reference": "0eb8d1153ba7f65fe7af68a86f3d7e422212cddb"
+            },
+            "require": {
+                "illuminate/support": "^10"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Osmianski\\ViewModels\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Osmianski\\ViewModels\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Osmianski\\ViewModels\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Author Name",
+                    "email": "author@email.com",
+                    "homepage": "http://author.com"
+                }
+            ],
+            "description": "Livewire view models",
+            "homepage": "https://github.com/osmianski/view-models",
+            "keywords": [
+                "Laravel",
+                "Livewire",
+                "Model",
+                "View"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "phpoption/phpoption",
@@ -6647,17 +6702,83 @@
             "time": "2021-10-08T21:21:46+00:00"
         },
         {
-            "name": "laravel/pint",
-            "version": "v1.8.0",
+            "name": "jeroen-g/laravel-packager",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/pint.git",
-                "reference": "4b8f2ef22bfcddd1d163cfd282e3f42ee1a5cce2"
+                "url": "https://github.com/Jeroen-G/laravel-packager.git",
+                "reference": "4b1a49523b40e349d405dbb9d22b40cb75ffd586"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/4b8f2ef22bfcddd1d163cfd282e3f42ee1a5cce2",
-                "reference": "4b8f2ef22bfcddd1d163cfd282e3f42ee1a5cce2",
+                "url": "https://api.github.com/repos/Jeroen-G/laravel-packager/zipball/4b1a49523b40e349d405dbb9d22b40cb75ffd586",
+                "reference": "4b1a49523b40e349d405dbb9d22b40cb75ffd586",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zip": "*",
+                "guzzlehttp/guzzle": "~7",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=3.8",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "suggest": {
+                "sensiolabs/security-checker": "Required to use the security check command"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JeroenG\\Packager\\PackagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JeroenG\\Packager\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "EUPL-1.1"
+            ],
+            "authors": [
+                {
+                    "name": "JeroenG",
+                    "email": "jeroengjeroeng@gmail.com",
+                    "homepage": "https://github.com/Jeroen-G"
+                }
+            ],
+            "description": "A cli tool for creating Laravel packages.",
+            "homepage": "https://github.com/Jeroen-G/laravel-packager",
+            "keywords": [
+                "Skeleton",
+                "laravel",
+                "package",
+                "packager"
+            ],
+            "support": {
+                "issues": "https://github.com/Jeroen-G/laravel-packager/issues",
+                "source": "https://github.com/Jeroen-G/laravel-packager/tree/2.9.0"
+            },
+            "time": "2023-02-15T12:00:00+00:00"
+        },
+        {
+            "name": "laravel/pint",
+            "version": "v1.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/pint.git",
+                "reference": "eac5ec3d6b5c96543c682e309a10fdddc9f61d80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/eac5ec3d6b5c96543c682e309a10fdddc9f61d80",
+                "reference": "eac5ec3d6b5c96543c682e309a10fdddc9f61d80",
                 "shasum": ""
             },
             "require": {
@@ -6710,7 +6831,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2023-04-04T13:08:09+00:00"
+            "time": "2023-04-18T14:50:44+00:00"
         },
         {
             "name": "laravel/sail",
@@ -7069,29 +7190,29 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "9070b1237775856d052b6ab5aadf0904dd3d4b06"
+                "reference": "5c0df87f52094859f12a203e7024711390fd239b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/9070b1237775856d052b6ab5aadf0904dd3d4b06",
-                "reference": "9070b1237775856d052b6ab5aadf0904dd3d4b06",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/5c0df87f52094859f12a203e7024711390fd239b",
+                "reference": "5c0df87f52094859f12a203e7024711390fd239b",
                 "shasum": ""
             },
             "require": {
                 "brianium/paratest": "^7.1.3",
-                "nunomaduro/collision": "^7.4.0",
+                "nunomaduro/collision": "^7.5.0",
                 "nunomaduro/termwind": "^1.15.1",
                 "pestphp/pest-plugin": "^2.0.1",
                 "pestphp/pest-plugin-arch": "^2.1.1",
                 "php": "^8.1.0",
-                "phpunit/phpunit": "^10.1.0"
+                "phpunit/phpunit": "^10.1.1"
             },
             "conflict": {
-                "phpunit/phpunit": ">10.1.0",
+                "phpunit/phpunit": ">10.1.1",
                 "webmozart/assert": "<1.11.0"
             },
             "require-dev": {
@@ -7152,7 +7273,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v2.5.0"
+                "source": "https://github.com/pestphp/pest/tree/v2.5.1"
             },
             "funding": [
                 {
@@ -7164,7 +7285,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-14T10:13:56+00:00"
+            "time": "2023-04-17T23:47:56+00:00"
         },
         {
             "name": "pestphp/pest-plugin",
@@ -7580,16 +7701,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.19.0",
+            "version": "1.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "178b33aa1c8b8d7725f0abee618ef47337e607ce"
+                "reference": "f545fc30978190a056832aa7ed995e36a66267f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/178b33aa1c8b8d7725f0abee618ef47337e607ce",
-                "reference": "178b33aa1c8b8d7725f0abee618ef47337e607ce",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/f545fc30978190a056832aa7ed995e36a66267f3",
+                "reference": "f545fc30978190a056832aa7ed995e36a66267f3",
                 "shasum": ""
             },
             "require": {
@@ -7619,9 +7740,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.19.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.19.1"
             },
-            "time": "2023-04-17T13:16:52+00:00"
+            "time": "2023-04-18T11:30:56+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7944,16 +8065,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.1.0",
+            "version": "10.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5a477aea03e61329132935689ae2d73f418f5e25"
+                "reference": "0d9401b7e8245d71079e249e3cb868e9d2337887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5a477aea03e61329132935689ae2d73f418f5e25",
-                "reference": "5a477aea03e61329132935689ae2d73f418f5e25",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0d9401b7e8245d71079e249e3cb868e9d2337887",
+                "reference": "0d9401b7e8245d71079e249e3cb868e9d2337887",
                 "shasum": ""
             },
             "require": {
@@ -7967,7 +8088,7 @@
                 "phar-io/manifest": "^2.0.3",
                 "phar-io/version": "^3.0.2",
                 "php": ">=8.1",
-                "phpunit/php-code-coverage": "^10.1",
+                "phpunit/php-code-coverage": "^10.1.1",
                 "phpunit/php-file-iterator": "^4.0",
                 "phpunit/php-invoker": "^4.0",
                 "phpunit/php-text-template": "^3.0",
@@ -8025,7 +8146,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.1.0"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.1.1"
             },
             "funding": [
                 {
@@ -8041,7 +8162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-14T05:15:09+00:00"
+            "time": "2023-04-17T12:17:05+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9384,7 +9505,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "osmianski/view-models": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

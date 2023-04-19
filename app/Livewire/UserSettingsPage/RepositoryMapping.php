@@ -17,6 +17,7 @@ class RepositoryMapping implements Wireable
 
     public function toLivewire(): array
     {
+        ray(__METHOD__);
         return [
             'path' => $this->path,
             'repo_url' => $this->repo_url,

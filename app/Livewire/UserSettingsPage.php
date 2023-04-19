@@ -24,16 +24,10 @@ class UserSettingsPage extends Component
         ];
     }
 
-    public function hydrate(): void {
-        $this->repository_mappings = array_map(
-            fn (array $item) => RepositoryMapping::fromLivewire($item),
-            $this->repository_mappings,
-        );
-    }
-
     public function render(): View
     {
         ray($this->repository_mappings);
+
         return view('livewire.user-settings-page');
     }
 }
