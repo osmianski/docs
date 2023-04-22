@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import {__, route} from "@/functions";
+import { ExclamationCircleIcon } from '@heroicons/vue/24/solid';
 
 const form = useForm({
     email: null,
@@ -26,22 +27,38 @@ const form = useForm({
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form @submit.prevent="form.post('/_sign-in')" class="space-y-6" action="#">
                 <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Email address)') }}</label>
-                    <div class="mt-2">
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+                        {{ __('Email address)') }}
+                    </label>
+                    <div class="relative mt-2 rounded-md shadow-sm">
                         <input v-model="form.email" id="email" type="email" autocomplete="email" required="" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div v-if="form.errors.email" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                            <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
+                        </div>
                     </div>
+                    <p v-if="form.errors.email" class="mt-2 text-sm text-red-600" id="email-error">
+                        {{ form.errors.email }}
+                    </p>
                 </div>
 
                 <div>
                     <div class="flex items-center justify-between">
-                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Password') }}</label>
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">
+                            {{ __('Password') }}
+                        </label>
                         <div class="text-sm">
                             <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ __('Forgot password?') }}</a>
                         </div>
                     </div>
-                    <div class="mt-2">
+                    <div class="relative mt-2 rounded-md shadow-sm">
                         <input v-model="form.password" id="password" type="password" autocomplete="current-password" required="" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <div v-if="form.errors.email" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                            <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
+                        </div>
                     </div>
+                    <p v-if="form.errors.password" class="mt-2 text-sm text-red-600" id="email-error">
+                        {{ form.errors.password }}
+                    </p>
                 </div>
 
                 <div>
