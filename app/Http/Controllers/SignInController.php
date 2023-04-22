@@ -8,4 +8,7 @@ class SignInController extends Controller
     {
         return inertia('SignIn');
     }
+
+    public function signIn() {
+    }
 }

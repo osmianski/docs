@@ -16,8 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'show']);
-Route::get('/_sign-in', [SignInController::class, 'show'])
-    ->name('login');
-Route::get('/osmianski/_settings', [UserSettingsController::class, 'show'])
-    ->middleware('auth');
+Route::get('/', [HomeController::class, 'show'])->name('home');
+//Route::get('/_sign-in', [SignInController::class, 'show'])->name('login');
+//Route::post('/_sign-in', [SignInController::class, 'signIn']);
+Route::get('/osmianski/_settings', [UserSettingsController::class, 'show'])->middleware('auth');
