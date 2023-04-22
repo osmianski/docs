@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SignInController;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'show']);
-Route::get('/osmianski/_settings', [UserSettingsController::class, 'show']);
+Route::get('/_sign-in', [SignInController::class, 'show'])
+    ->name('login');
+Route::get('/osmianski/_settings', [UserSettingsController::class, 'show'])
+    ->middleware('auth');

@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/inertia-vue3';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import {__, route} from "@/functions";
 
 const user = {
     name: 'Tom Cook',
@@ -10,15 +11,15 @@ const user = {
         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: __('Dashboard'), href: '#', current: true },
+    { name: __('Team'), href: '#', current: false },
+    { name: __('Projects'), href: '#', current: false },
+    { name: __('Calendar'), href: '#', current: false },
 ]
 const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '/osmianski/_settings' },
-    { name: 'Sign out', href: '#' },
+    { name: __('Your Profile'), href: '#' },
+    { name: __('Settings'), href: route('/osmianski/_settings') },
+    { name: __('Sign out'), href: '#' },
 ]
 </script>
 
@@ -29,7 +30,7 @@ const userNavigation = [
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 justify-between">
                     <div class="flex">
-                        <Link href="/" class="flex flex-shrink-0 items-center">
+                        <Link :href="route('/')" class="flex flex-shrink-0 items-center">
                             <img class="block h-8 w-auto lg:hidden" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
                             <img class="hidden h-8 w-auto lg:block" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
                         </Link>
@@ -39,7 +40,7 @@ const userNavigation = [
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center">
                         <button type="button" class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            <span class="sr-only">View notifications</span>
+                            <span class="sr-only">{{ __('View notifications') }}</span>
                             <BellIcon class="h-6 w-6" aria-hidden="true" />
                         </button>
 
@@ -47,7 +48,7 @@ const userNavigation = [
                         <Menu as="div" class="relative ml-3">
                             <div>
                                 <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                    <span class="sr-only">Open user menu</span>
+                                    <span class="sr-only">{{ __('Open user menu') }}</span>
                                     <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
                                 </MenuButton>
                             </div>
@@ -63,7 +64,7 @@ const userNavigation = [
                     <div class="-mr-2 flex items-center sm:hidden">
                         <!-- Mobile menu button -->
                         <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            <span class="sr-only">Open main menu</span>
+                            <span class="sr-only">{{ __('Open main menu') }}</span>
                             <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
                             <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
                         </DisclosureButton>
@@ -85,7 +86,7 @@ const userNavigation = [
                             <div class="text-sm font-medium text-gray-500">{{ user.email }}</div>
                         </div>
                         <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            <span class="sr-only">View notifications</span>
+                            <span class="sr-only">{{ __('View notifications') }}</span>
                             <BellIcon class="h-6 w-6" aria-hidden="true" />
                         </button>
                     </div>

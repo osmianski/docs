@@ -1,16 +1,17 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
-import Layout from "@/Components/Layout.vue";
+import LayoutApp from "@/Components/LayoutApp.vue";
+import {__} from "@/functions";
 </script>
 
 <template>
-    <Head title="Settings" />
+    <Head :title="__('Settings')" />
 
-    <Layout>
+    <LayoutApp>
         <template v-slot:header>
-            <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">Settings</h1>
+            <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">{{ __('Settings')}}</h1>
         </template>
 
-    </Layout>
+    </LayoutApp>
 </template>
 

@@ -1,11 +1,12 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import Layout from "@/Components/Layout.vue";
+import LayoutApp from "@/Components/LayoutApp.vue";
+import {__} from "@/functions";
 </script>
 
 <template>
-    <Head title="Home page" />
+    <Head :title="__('Home')" />
 
-    <Layout>
-    </Layout>
+    <LayoutApp>
+    </LayoutApp>
 </template>
