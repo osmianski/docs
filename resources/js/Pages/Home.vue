@@ -1,9 +1,11 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import Layout from "@/Components/Layout.vue";
 </script>
 
 <template>
-    <Head title="Hello, world!" />
+    <Head title="Home page" />
 
-    <Link href="/osmianski/_settings">Settings</Link>
+    <Layout>
+    </Layout>
 </template>

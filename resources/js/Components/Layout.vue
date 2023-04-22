@@ -1,8 +1,7 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3';
-
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Link } from '@inertiajs/inertia-vue3';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 
 const user = {
     name: 'Tom Cook',
@@ -18,26 +17,24 @@ const navigation = [
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
+    { name: 'Settings', href: '/osmianski/_settings' },
     { name: 'Sign out', href: '#' },
 ]
 </script>
 
 <template>
-    <Head title="Settings" />
-
     <!-- https://tailwindui.com/components/application-ui/application-shells/stacked -->
     <div class="min-h-full">
         <Disclosure as="nav" class="border-b border-gray-200 bg-white" v-slot="{ open }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 justify-between">
                     <div class="flex">
-                        <div class="flex flex-shrink-0 items-center">
+                        <Link href="/" class="flex flex-shrink-0 items-center">
                             <img class="block h-8 w-auto lg:hidden" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
                             <img class="hidden h-8 w-auto lg:block" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
-                        </div>
+                        </Link>
                         <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                            <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+                            <Link v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</Link>
                         </div>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -57,7 +54,7 @@ const userNavigation = [
                             <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                                        <a :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{ item.name }}</a>
+                                        <Link :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{ item.name }}</Link>
                                     </MenuItem>
                                 </MenuItems>
                             </transition>
@@ -100,7 +97,16 @@ const userNavigation = [
         </Disclosure>
 
         <div class="py-10">
-            <slot />
+            <header>
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <slot name="header"></slot>
+                </div>
+            </header>
+            <main>
+                <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <slot />
+                </div>
+            </main>
         </div>
     </div>
 </template>
