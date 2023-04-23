@@ -49,6 +49,10 @@ A SaaS that renders a mega website from lots of Git repositories. Built with Lar
     cp git-hooks/* .git/hooks/
     ```  
 
+## Documentation
+
+The project documentation is available at <https://github.com/osmianski/docs/tree/v0.3/docs>.
+
 ## Previous effort
 
 ### v0.2
