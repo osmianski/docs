@@ -147,7 +147,7 @@ return [
     'paths' => [
         'login' => '/_sign-in',
         'register' => '/_sign-up',
-        'logout' => '/_logout',
+        'logout' => '/_sign-out',
         'password' => [
             'request' => '/_forgot-password',
             'email' => '/_forgot-password',

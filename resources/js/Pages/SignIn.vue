@@ -25,7 +25,7 @@ const form = useForm({
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form @submit.prevent="form.post('/_sign-in')" class="space-y-6" action="#">
+            <form @submit.prevent="form.post('/_sign-in')" class="space-y-6">
                 <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
                         {{ __('Email address)') }}

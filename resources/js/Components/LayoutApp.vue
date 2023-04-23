@@ -1,8 +1,10 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3';
+import {Link} from '@inertiajs/inertia-vue3';
+import { router } from '@inertiajs/vue3';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import {__, route} from "@/functions";
+import axios from "axios";
 
 const user = {
     name: 'Tom Cook',
@@ -19,7 +21,8 @@ const navigation = [
 const userNavigation = [
     { name: __('Your Profile'), href: '#' },
     { name: __('Settings'), href: route('/osmianski/_settings') },
-    { name: __('Sign out'), href: '#' },
+    //{ name: __('Sign out'), href: route('/_sign-out'), form: useForm({}), mobileForm: useForm({dummy: ''}) },
+    { name: __('Sign out'), click: () => axios.post(route('/_sign-out')).then(() => router.reload()) },
 ]
 </script>
 
@@ -55,7 +58,12 @@ const userNavigation = [
                             <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                                        <Link :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{ item.name }}</Link>
+                                        <Link v-if="item.href" :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                            {{ item.name }}
+                                        </Link>
+                                        <button v-else @click="item.click" type="button" :class="[active ? 'bg-gray-100' : '', 'w-full text-left px-4 py-2 text-sm text-gray-700']">
+                                            {{ item.name }}
+                                        </button>
                                     </MenuItem>
                                 </MenuItems>
                             </transition>
@@ -91,7 +99,17 @@ const userNavigation = [
                         </button>
                     </div>
                     <div class="mt-3 space-y-1">
-                        <DisclosureButton v-for="item in userNavigation" :key="item.name" as="a" :href="item.href" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">{{ item.name }}</DisclosureButton>
+                        <div v-for="item in userNavigation" :key="item.name">
+                            <DisclosureButton v-if="! item.mobileForm" as="a" :href="item.href" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+                                {{ item.name }}
+                            </DisclosureButton>
+                            <form v-else @submit.prevent="item.mobileForm.post(item.href)" class="w-full">
+                                <input v-model="item.mobileForm.dummy" type="hidden">
+                                <DisclosureButton as="button" type="submit" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+                                    {{ item.name }}
+                                </DisclosureButton>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </DisclosurePanel>
