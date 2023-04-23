@@ -18,7 +18,7 @@ const navigation = [
 const userNavigation = user.value
     ? [
         // { name: __('Your Profile'), href: '#' },
-        { name: __('Settings'), href: route('/osmianski/_settings') },
+        { name: __('Settings'), href: route(`/${user.value.slug}/_settings`) },
         { name: __('Sign out'), click: () => axios.post(route('/_sign-out')).then(() => router.reload()) },
     ]
     : [
