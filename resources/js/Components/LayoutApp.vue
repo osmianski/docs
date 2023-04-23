@@ -20,7 +20,6 @@ const navigation = [
 const userNavigation = [
     { name: __('Your Profile'), href: '#' },
     { name: __('Settings'), href: route('/osmianski/_settings') },
-    //{ name: __('Sign out'), href: route('/_sign-out'), form: useForm({}), mobileForm: useForm({dummy: ''}) },
     { name: __('Sign out'), click: () => axios.post(route('/_sign-out')).then(() => router.reload()) },
 ]
 </script>
@@ -99,15 +98,12 @@ const userNavigation = [
                     </div>
                     <div class="mt-3 space-y-1">
                         <div v-for="item in userNavigation" :key="item.name">
-                            <DisclosureButton v-if="! item.mobileForm" as="a" :href="item.href" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+                            <DisclosureButton v-if="item.href" as="a" :href="item.href" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
                                 {{ item.name }}
                             </DisclosureButton>
-                            <form v-else @submit.prevent="item.mobileForm.post(item.href)" class="w-full">
-                                <input v-model="item.mobileForm.dummy" type="hidden">
-                                <DisclosureButton as="button" type="submit" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
-                                    {{ item.name }}
-                                </DisclosureButton>
-                            </form>
+                            <DisclosureButton v-else as="button" @click="item.click" class="w-full text-left block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+                                {{ item.name }}
+                            </DisclosureButton>
                         </div>
                     </div>
                 </div>
