@@ -5,3 +5,7 @@ set -e
 
 # Fix PHP styles
 vendor/bin/pint --dirty
+
+# Include changes made by Pint into this commit. Without this line, the style changes
+# will stay uncommitted.
+git add .

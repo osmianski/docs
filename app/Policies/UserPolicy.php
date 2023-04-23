@@ -19,6 +19,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
+        // Only the user can see his settings
         return $user->id === $model->id;
     }
 
