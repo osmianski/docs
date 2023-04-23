@@ -1,27 +1,30 @@
 <script setup>
-import { Link, router } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline';
 import {__, route} from "@/functions";
 import axios from "axios";
 
-const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+const page = usePage();
+const user = computed(() => page.props.user);
+
 const navigation = [
-    { name: __('Dashboard'), href: '#', current: true },
-    { name: __('Team'), href: '#', current: false },
-    { name: __('Projects'), href: '#', current: false },
-    { name: __('Calendar'), href: '#', current: false },
-]
-const userNavigation = [
-    { name: __('Your Profile'), href: '#' },
-    { name: __('Settings'), href: route('/osmianski/_settings') },
-    { name: __('Sign out'), click: () => axios.post(route('/_sign-out')).then(() => router.reload()) },
-]
+    // { name: __('Dashboard'), href: '#', current: true },
+    // { name: __('Team'), href: '#', current: false },
+    // { name: __('Projects'), href: '#', current: false },
+    // { name: __('Calendar'), href: '#', current: false },
+];
+const userNavigation = user.value
+    ? [
+        // { name: __('Your Profile'), href: '#' },
+        { name: __('Settings'), href: route('/osmianski/_settings') },
+        { name: __('Sign out'), click: () => axios.post(route('/_sign-out')).then(() => router.reload()) },
+    ]
+    : [
+        { name: __('Sign in'), href: route('/_sign-in') },
+        { name: __('Sign up'), href: route('/_sign-up') },
+    ];
 </script>
 
 <template>
@@ -50,7 +53,7 @@ const userNavigation = [
                             <div>
                                 <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                     <span class="sr-only">{{ __('Open user menu') }}</span>
-                                    <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                                    <UserIcon class="h-6 w-6" />
                                 </MenuButton>
                             </div>
                             <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -83,9 +86,9 @@ const userNavigation = [
                     <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href" :class="[item.current ? 'border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800', 'block border-l-4 py-2 pl-3 pr-4 text-base font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
                 </div>
                 <div class="border-t border-gray-200 pb-3 pt-4">
-                    <div class="flex items-center px-4">
+                    <div v-if="user" class="flex items-center px-4">
                         <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
+                            <UserIcon class="h-6 w-6" />
                         </div>
                         <div class="ml-3">
                             <div class="text-base font-medium text-gray-800">{{ user.name }}</div>

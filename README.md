@@ -32,9 +32,16 @@ A SaaS that renders a mega website from lots of Git repositories. Built with Lar
     npm run dev
     ```
 
-4. Open the local copy of the website in the browser: <http://127.0.0.1:8000/>.
+4. In a separate terminal window, run the database migrations:
 
-5. Copy Git hooks:
+    ```shell
+    cd ~/projects/docs
+    sail artisan migrate:fresh --seed
+    ```
+   
+5. Open the local copy of the website in the browser: <http://127.0.0.1:8000/>.
+
+6. Copy Git hooks:
 
     ```shell
     cd ~/projects/docs

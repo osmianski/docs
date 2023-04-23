@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
         User::factory(9)->create();
 
         User::factory()->state([
+            'slug' => 'john-doe',
+            'name' => 'John Doe',
             'email' => 'john@example.com',
         ])->create();
     }
