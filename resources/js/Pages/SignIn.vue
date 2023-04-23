@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import {__, route} from "@/functions";
 import { ExclamationCircleIcon } from '@heroicons/vue/24/solid';
 

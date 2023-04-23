@@ -1,6 +1,5 @@
 <script setup>
-import {Link} from '@inertiajs/inertia-vue3';
-import { router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import {__, route} from "@/functions";
