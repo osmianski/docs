@@ -1,24 +1,30 @@
 <script setup>
-import { computed } from 'vue';
-import { Link, router, usePage } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline';
 import {__, route} from "@/functions";
 import axios from "axios";
 
-const page = usePage();
-const user = computed(() => page.props.user);
+const props = defineProps({
+    user: {
+        type: Object,
+    },
+});
 
-const navigation = [
-    // { name: __('Dashboard'), href: '#', current: true },
-    // { name: __('Team'), href: '#', current: false },
-    // { name: __('Projects'), href: '#', current: false },
-    // { name: __('Calendar'), href: '#', current: false },
-];
-const userNavigation = user.value
+// Each item must have a `name` and `href`.
+const navigation = props.user
+    ? [
+        { name: __('Mappings'), href: route(`/${props.user.slug}/_mappings`), current: false },
+    ]
+    : [
+    ];
+
+// Each item must have a `name`. Link items must have `href`,
+// button items must have `click`.
+const userNavigation = props.user
     ? [
         // { name: __('Your Profile'), href: '#' },
-        { name: __('Settings'), href: route(`/${user.value.slug}/_settings`) },
+        { name: __('Settings'), href: route(`/${props.user.slug}/_settings`) },
         { name: __('Sign out'), click: () => axios.post(route('/_sign-out')).then(() => router.reload()) },
     ]
     : [
