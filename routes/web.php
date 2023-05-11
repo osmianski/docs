@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MappingController;
 use App\Http\Controllers\SettingsController;
@@ -21,4 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/{user:slug}/_settings', [SettingsController::class, 'view']);
     Route::get('/{user:slug}/_mappings', [MappingController::class, 'index']);
     Route::get('/{user:slug}/_mappings/create', [MappingController::class, 'create']);
+    Route::get('/_github', [GitHubController::class, 'show']);
+    Route::get('/_github/auth', [GitHubController::class, 'callback']);
 });

@@ -11,6 +11,7 @@
         "laravel/fortify": "^1.17",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
+        "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.8",
         "osmianski/lazy-properties": "^0.1.1",
         "osmianski/not-implemented": "^0.1.0",

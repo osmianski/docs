@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\GitHub;
 use App\Reflection\Loader;
-use App\Reflection\Singletons;
+use App\Reflection\Registries;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,26 +14,37 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerReflectionLoader();
         $this->registerSingletonContainer();
+        $this->registerGitHub();
     }
 
     protected function registerReflectionLoader(): void
     {
         $this->app->singleton(Loader::class, function () {
             return new Loader([
-                'App\Models' => base_path('app/Models'),
+                'App' => base_path('app'),
             ]);
         });
     }
 
     protected function registerSingletonContainer(): void
     {
-        $this->app->singleton(Singletons::class, function (Application $app) {
-            return new Singletons($app[Loader::class]->getClasses());
+        $this->app->singleton(Registries::class, function (Application $app) {
+            return new Registries($app[Loader::class]->getClasses());
         });
     }
 
     public function boot(): void
     {
         //
+    }
+
+    protected function registerGitHub(): void
+    {
+        $this->app->singleton(GitHub::class, function () {
+            return new GitHub(
+                token: config('github.token'),
+                user: auth()->user() ?? null,
+            );
+        });
     }
 }

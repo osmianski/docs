@@ -8,21 +8,17 @@ defineProps({
         type: Object,
         required: true,
     },
-    type: {
-        type: Object,
-        required: true,
-    },
 });
 
 </script>
 
 <template>
-    <Head :title="__('New :type mapping', {type: type.name}) + ' | ' + __('Mappings')" />
+    <Head :title="__('New GitHub mapping') + ' | ' + __('Mappings')" />
 
     <LayoutApp :user="user">
         <template v-slot:header>
             <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                {{ __('New :type mapping', {type: type.name})}}
+                {{ __('New GitHub mapping')}}
             </h1>
         </template>
 

@@ -1,15 +1,18 @@
 <?php
 
-use App\Reflection\Singletons;
-use Illuminate\Support\Collection;
+use App\GitHub;
+use App\Reflection\Registries;
 
-/**
- * @template T of object
- *
- * @param  class-string<T>  $baseClass
- * @return Collection<string, T>
- */
-function singletons_of(string $baseClass): Collection
-{
-    return app(Singletons::class)->of($baseClass);
+if (! function_exists('registries')) {
+    function registries(): Registries
+    {
+        return app(Registries::class);
+    }
+}
+
+if (! function_exists('github')) {
+    function github(): GitHub
+    {
+        return app(GitHub::class);
+    }
 }

@@ -12,15 +12,10 @@ class Mapping extends Model
     use HasUuids;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
     ];
 
     protected $hidden = [
         'id',
-        'created_at',
-        'email_verified_at',
     ];
 
     public function uniqueIds(): array

@@ -2,7 +2,7 @@
 
 * [`singletons_of()` function](#singletonsof-function)
 
-## `singletons_of()` function
+## `registries()` function
 
 Organize type hierarchies as follows:
 
@@ -26,7 +26,7 @@ class Github extends Type
 Then access singleton instance array of all descending classes as follows:
 
 ```php
-$types = singletons_of(Mapping\Type::class);
+$types = registries()->singletonsOf(Mapping\Type::class);
 
-$type = singletons_of(Mapping\Type::class)->get('github');
+$type = registries()->singletonsOf(Mapping\Type::class)->get('github');
 ```
