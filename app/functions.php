@@ -14,4 +14,4 @@ function singletons_of(string $baseClass): Collection
     return app(Singletons::class)->of($baseClass);
 }
 
-// test
+// test 2
