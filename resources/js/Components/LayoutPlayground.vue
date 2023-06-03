@@ -1,7 +1,7 @@
 <script setup>
-import { Link, router } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import { Disclosure, DisclosureButton } from '@headlessui/vue';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
 import {__, route} from "@/functions";
 
 // Each item must have a `name` and `href`.
@@ -38,7 +38,7 @@ const navigation = [];
 
         <div class="py-10">
             <header>
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto mb-10 space-y-10 max-w-7xl px-4 sm:px-6 lg:px-8">
                     <slot name="header"></slot>
                 </div>
             </header>

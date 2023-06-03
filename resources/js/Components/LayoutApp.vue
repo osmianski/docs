@@ -1,7 +1,7 @@
 <script setup>
 import { Link, router } from '@inertiajs/vue3';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline';
+import { Bars3Icon, BellIcon, XMarkIcon, UserIcon, BeakerIcon } from '@heroicons/vue/24/outline';
 import {__, route} from "@/functions";
 import axios from "axios";
 
@@ -31,6 +31,10 @@ const userNavigation = props.user
         { name: __('Sign in'), href: route('/_sign-in') },
         { name: __('Sign up'), href: route('/_sign-up') },
     ];
+
+const devNavigation = [
+    { name: __('Playground'), href: route('/_playground') },
+];
 </script>
 
 <template>
@@ -53,6 +57,28 @@ const userNavigation = props.user
                             <span class="sr-only">{{ __('View notifications') }}</span>
                             <BellIcon class="h-6 w-6" aria-hidden="true" />
                         </button>
+
+                        <!-- Dev dropdown -->
+                        <Menu as="div" class="relative ml-3">
+                            <div>
+                                <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    <span class="sr-only">{{ __('Open developer menu') }}</span>
+                                    <BeakerIcon class="h-6 w-6" />
+                                </MenuButton>
+                            </div>
+                            <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                                <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <MenuItem v-for="item in devNavigation" :key="item.name" v-slot="{ active }">
+                                        <Link v-if="item.href" :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                            {{ item.name }}
+                                        </Link>
+                                        <button v-else @click="item.click" type="button" :class="[active ? 'bg-gray-100' : '', 'w-full text-left px-4 py-2 text-sm text-gray-700']">
+                                            {{ item.name }}
+                                        </button>
+                                    </MenuItem>
+                                </MenuItems>
+                            </transition>
+                        </Menu>
 
                         <!-- Profile dropdown -->
                         <Menu as="div" class="relative ml-3">
@@ -121,7 +147,7 @@ const userNavigation = props.user
 
         <div class="py-10">
             <header>
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto mb-10 max-w-7xl px-4 sm:px-6 lg:px-8">
                     <slot name="header"></slot>
                 </div>
             </header>

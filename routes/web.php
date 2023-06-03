@@ -29,5 +29,6 @@ Route::middleware('auth')->group(function () {
 
 if (!app()->isProduction()) {
     Route::get('/_playground', [PlaygroundController::class, 'show']);
+    Route::get('/_playground/comboboxes', [PlaygroundController::class, 'showComboboxes']);
 }
 

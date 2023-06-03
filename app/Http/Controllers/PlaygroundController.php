@@ -10,4 +10,9 @@ class PlaygroundController extends Controller
     {
         return inertia('Playground');
     }
+
+    public function showComboboxes(): Response
+    {
+        return inertia('PlaygroundComboboxes');
+    }
 }
