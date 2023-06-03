@@ -17,7 +17,7 @@ class MappingController extends Controller
     public function index(User $user): Response
     {
         return inertia('MappingIndex', [
-            'types' => registries()->singletonsOf(Mapping\Type::class),
+            'types' => registries()->singletonsOf(Mapping\Type::class)->values(),
         ]);
     }
 

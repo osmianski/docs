@@ -4,6 +4,7 @@ import LayoutApp from "@/Components/LayoutApp.vue";
 import {__, route} from "@/functions";
 import ButtonWithMenu from "@/Components/ButtonWithMenu.vue";
 import {MenuItem} from "@headlessui/vue";
+import Breadcrumbs from "@/Components/Breadcrumbs.vue";
 
 defineProps({
     user: {
@@ -23,6 +24,9 @@ defineProps({
 
     <LayoutApp :user="user">
         <template v-slot:header>
+            <Breadcrumbs :pages="[
+                { name: __('Mappings') },
+            ]" />
             <div class="mt-2 md:flex md:items-center md:justify-between">
                 <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">
                     {{ __('Mappings') }}
