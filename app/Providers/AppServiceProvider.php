@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\GitHub;
 use App\Reflection\Loader;
 use App\Reflection\Registries;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        Model::preventLazyLoading(! $this->app->isProduction());
     }
 
     protected function registerGitHub(): void

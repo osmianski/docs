@@ -13,7 +13,7 @@ class GitHubController extends MappingTypeController
     public function create(): Response|RedirectResponse
     {
         return inertia('MappingCreateGitHub', [
-            'repositories' => github()->getRepositories(),
+            //'repositories' => github()->getRepositories(),
         ]);
     }
 }

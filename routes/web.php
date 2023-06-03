@@ -3,6 +3,7 @@
 use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MappingController;
+use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/_github', [GitHubController::class, 'show']);
     Route::get('/_github/auth', [GitHubController::class, 'callback']);
 });
+
+if (!app()->isProduction()) {
+    Route::get('/_playground', [PlaygroundController::class, 'show']);
+}
+

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Inertia\Response;
 
-class HomeController extends Controller
+class PlaygroundController extends Controller
 {
     public function show(): Response
     {
-        return inertia('Home');
+        return inertia('Playground');
     }
 }
